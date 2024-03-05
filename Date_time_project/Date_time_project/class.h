@@ -1,8 +1,12 @@
 #pragma once
+enum Status { SUCCESS, ERROR, WARNING };
+
 class CTime
 {
 private:
-	int second, minute, hour;
+	int second;
+	int minute;
+	int hour;
 public:
 	CTime();
 	CTime(int _second, int _minute, int _hour);
@@ -15,3 +19,4 @@ public:
 	int get_hours();
 	void print_parametrs();
 };
+

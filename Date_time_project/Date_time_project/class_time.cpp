@@ -1,5 +1,6 @@
 #include <iostream>
 #include "class.h"
+#include "CDate.h"
 
 
 	CTime::CTime()
@@ -44,5 +45,5 @@
 	}
 	void CTime::print_parametrs()
 	{
-		std::cout << hour << ":" << minute << ":" << second;
+		std::cout << hour << ":" << minute << ":" << second << "\n";
 	}
