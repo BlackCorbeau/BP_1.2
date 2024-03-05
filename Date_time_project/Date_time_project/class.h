@@ -1,5 +1,4 @@
 #pragma once
-enum Status { SUCCESS, ERROR, WARNING };
 
 class CTime
 {
