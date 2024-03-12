@@ -67,6 +67,22 @@ CString::CString(size_t n, char c)
     _data[_size] = '\0';
 }
 
+CString::CString(const CString& str, size_t pos, size_t len)
+{
+    _size = 0;
+    while (str._data[_size] != '\0')
+    {
+        _size++;
+    }
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    _data = new char[_capacity];
+    for (int i = 0; i < len; i++)
+    {
+        _data[i] = str._data[i + pos];
+    }
+    _data[len] = '\0';
+}
+
 /// <summary>
 /// Деструктор.
 /// </summary>
