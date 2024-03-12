@@ -3,7 +3,7 @@
 
 int main() {
     char test[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0' };
-    CString str_1(test);
+    CString str_1(test, 4);
     CString str_2(str_1);
     str_1.print();
     return 0;

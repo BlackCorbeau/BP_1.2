@@ -40,6 +40,22 @@ CString::CString(const char* c_str)
     _data[_size] = '\0';
 }
 
+CString::CString(const char* c_str, size_t n)
+{
+    _size = 0;
+    while (c_str[_size] != '\0')
+    {
+        _size++;
+    }
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    _data = new char[_capacity];
+    for (int i = n; i < _size; i++)
+    {
+        _data[i-n] = c_str[i];
+    }
+    _data[_size-n] = '\0';
+}
+
 /// <summary>
 /// Деструктор.
 /// </summary>
@@ -61,9 +77,11 @@ bool CString::empty() const noexcept {
 
 void CString::print() const noexcept
 {
-    for (int i = 0; i < _size; i++)
+    size_t i = 0;
+    while (_data[i] != '\0')
     {
         std::cout << _data[i];
+        i++;
     }
     std::cout << "\n";
 }
