@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+Date_time_project/
+x64/
+.vs/
+
