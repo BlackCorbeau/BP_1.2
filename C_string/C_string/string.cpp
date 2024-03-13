@@ -102,6 +102,11 @@ bool CString::empty() const noexcept {
     return _size == 0;
 }
 
+bool CString::full() const noexcept
+{
+    return _size == -1;
+}
+
 void CString::print() const noexcept
 {
     size_t i = 0;
@@ -112,12 +117,39 @@ void CString::print() const noexcept
     }
     std::cout << "\n";
 }
+
+Status CString::check_overfull() const noexcept
+{
+    Status stat = EMPTY;
+    if (_size > 0)
+    {
+        stat = NOT_FULL;
+        if (_capacity == _max_capacity)
+        {
+            stat = CAPACITY_FULL;
+        }
+        else if (_size == _max_capacity)
+        {
+            stat = SIZE_FULL;
+        }
+        return stat;
+    }
+    return stat;
+}
 /// <summary>
 /// Геттер для размера строки.
 /// </summary>
 /// <returns>размер (длина) строки</returns>
 size_t CString::size() const noexcept {
     return _size;
+}
+size_t CString::capacity() const noexcept
+{
+    return _capacity;
+}
+const char* CString::data() const
+{
+    return _data;
 }
 /// <summary>
 /// Функция сравнения (лексикографического).

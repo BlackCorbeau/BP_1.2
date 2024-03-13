@@ -5,6 +5,8 @@
 
 #define STEP_CAPACITY 15
 
+enum Status { EMPTY, NOT_FULL, CAPACITY_FULL, SIZE_FULL};
+
 namespace algorithms {
     template<typename T>
     void swap(T& val_1, T& val_2) {
@@ -44,12 +46,14 @@ public:
 
     void print() const noexcept; 
 
+    Status check_overfull() const noexcept;
+
     bool empty() const noexcept;
-    //bool full() const noexcept;
+    bool full() const noexcept;
 
     size_t size() const noexcept;
-    //size_t capacity() const noexcept;
-    //const char* data() const;
+    size_t capacity() const noexcept;
+    const char* data() const;
 
     //void swap(CString& str);
     //size_t copy(char* buf, size_t len, size_t pos = 0) const;
