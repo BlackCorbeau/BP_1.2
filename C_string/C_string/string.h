@@ -55,8 +55,8 @@ public:
     size_t capacity() const noexcept;
     const char* data() const;
 
-    //void swap(CString& str);
-    //size_t copy(char* buf, size_t len, size_t pos = 0) const;
+    void swap(CString& str);
+    size_t copy(char* buf, size_t len, size_t pos = 0) const;
     //CString substr(size_t pos, size_t len) const;
 
     //CString& assign(const CString& str);

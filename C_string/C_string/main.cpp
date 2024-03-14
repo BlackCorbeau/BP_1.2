@@ -7,13 +7,9 @@ int main() {
     CString str_2(str_1, 2, 3);
     str_2.print();
     str_1.print();
-    std::cout << str_2.capacity() << '\n';
-    std::cout << str_2.size() << '\n';
-    const char* a = str_2.data();
-    for (int i = 0; i < str_2.size(); i++)
-    {
-        std::cout << a[i] << ' ';
-    }
+    str_1.swap(str_2);
+    str_2.print();
+    str_1.print();
     return 0;
 }
 

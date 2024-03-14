@@ -151,6 +151,18 @@ const char* CString::data() const
 {
     return _data;
 }
+void CString::swap(CString& str)
+{
+    for (int i = 0; i < _size; i ++)
+    {
+        algorithms::swap(_data[i], str._data[i]);
+    }
+}
+
+size_t CString::copy(char* buf, size_t len, size_t pos = 0) const
+{
+    //???
+}
 /// <summary>
 /// Функция сравнения (лексикографического).
 /// </summary>
