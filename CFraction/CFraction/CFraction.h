@@ -33,4 +33,7 @@ public:
 
     Fraction operator/(const Fraction& fr);
     void operator/=(const Fraction& fr);
+
+    //<<
+    //>>
 };
