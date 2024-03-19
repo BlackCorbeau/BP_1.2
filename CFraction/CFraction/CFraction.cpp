@@ -49,7 +49,7 @@ int Fraction::get_denuminator()
 	return _denominator;
 }
 
-void Fraction::Fraction_print()
+void Fraction::print()
 {
 	std::cout << _numerator << '/' << _denominator << '\n';
 }
@@ -81,4 +81,19 @@ Fraction Fraction::operator+(const Fraction& fr1)
 		Res._numerator = (Res._numerator * fr1._denominator) + (fr1._numerator * Res._denominator);
 	}
 	return Res;
+}
+
+Fraction Fraction::operator=(const Fraction& fr)
+{
+	if (this != &fr)
+	{
+		_denominator = fr._denominator;
+		_numerator = fr._numerator;
+	}
+	else { return *this; }
+}
+
+bool Fraction::operator!=(const Fraction& fr)
+{
+	return (_denominator != fr._denominator && _numerator != fr._numerator);
 }
