@@ -27,4 +27,10 @@ public:
 
     Fraction operator-(const Fraction& fr);
     void operator-=(const Fraction& fr);
+
+    Fraction operator*(const Fraction& fr);
+    void operator*=(const Fraction& fr);
+
+    Fraction operator/(const Fraction& fr);
+    void operator/=(const Fraction& fr);
 };
