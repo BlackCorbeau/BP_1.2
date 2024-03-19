@@ -14,31 +14,6 @@ CString::CString() {
 /// Конструктор копирования.
 /// </summary>
 /// <param name="str"> - копируемая строка</param>
-CString::CString(const char* str1_data, const CString& str2, size_t pos)
-{
-    size_t len1 = 0;
-    while (str1_data[len1] != '\0')
-    {
-        len1++;
-    }
-    size_t len2 = 0;
-    while (str2._data[len2] != '\0')
-    {
-        len2++;
-    }
-    _size = len1 + len2;
-    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
-    _data = new char[_capacity];
-    for (int i = 0; i < len1; i++)
-    {
-        _data[i] = str1_data[i];
-    }
-    for (int i = 0; i < len2; i++)
-    {
-        _data[i+pos] = str2._data[i];
-    }
-    _data[_size] = '\0';
-}
 CString::CString(const CString& str) { //добавить проверку на переполненность!!!
     _size = str._size;
     _capacity = str._capacity;
@@ -211,49 +186,84 @@ void CString::swap(CString& str)
 //    return REP;
 //}
 
-CString& CString::assign(const CString& str) //После return зачем то вызывает диструктор((( Спросить!!!
+CString& CString::assign(const CString& str)
 {
-    Status stat = check_overfull();
-    if (stat == SIZE_FULL)
+    _size = 0;
+    delete _data;
+    while (str._data[_size] != '\0')
     {
-        std::cout << "Строка Переполнена";
-        CString ret(_data);
-        return ret;
+        _size++;
     }
-    else if (stat == CAPACITY_FULL)
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    _data = new char[_capacity];
+    for (int i = 0; i < _size; i++)
     {
-        if (_size + str._size >= _capacity)
-        {
-            std::cout << "Строка переполненнна!";
-            CString ret(_data);
-            return ret;
-        }
-        else
-        {
-            CString ret(_data, str, _size);
-            return ret;
-        }
+        _data[i] = str._data[i];
     }
-    else if (stat == CAPACITY_FULL_IN_ONE_STEP)
+    _data[_size] = '\0';
+    return *this;
+}
+
+CString& CString::assign(const CString& str, size_t pos, size_t len)
+{
+    _size = len;
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    delete _data;
+    _data = new char[_capacity];
+    for (int i = 0; i < _size; i++)
     {
-        _capacity += STEP_CAPACITY;
-        if (_size + str._size >= _capacity)
-        {
-            std::cout << "Строка переполненнна!";
-            CString ret(_data);
-            return ret;
-        }
-        else
-        {
-            CString ret(_data, str, _size);
-            return ret;
-        }
+        _data[i] = str._data[i+pos];
     }
-    else
+    _data[_size] = '\0';
+    return *this;
+}
+CString& CString::assign(const char* s)
+{
+    _size = 0;
+    delete _data;
+    while (s[_size] != '\0')
     {
-        CString ret(_data, str, _size);
-        return ret;
+        _size++;
     }
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    _data = new char[_capacity];
+    for (int i = 0; i < _size; i++)
+    {
+        _data[i] = s[i];
+    }
+    _data[_size] = '\0';
+    return *this;
+}
+
+CString& CString::assign(const char* s, size_t n)
+{
+    _size = 0;
+    delete _data;
+    while (s[_size] != '\0')
+    {
+        _size++;
+    }
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    _data = new char[_capacity];
+    for (int i = 0; i < _size; i++)
+    {
+        _data[i] = s[i+n];
+    }
+    _data[_size] = '\0';
+    return *this;
+}
+CString& CString::assign(size_t n, char c)
+{
+    _size = n;
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    delete _data;
+    _data = new char[_capacity];
+    for (int i = 0; i < _size; i++)
+    {
+        _data[i] = c;
+    }
+    _data[_size] = '\0';
+    return *this;
 }
 /// <summary>
 /// Функция сравнения (лексикографического).

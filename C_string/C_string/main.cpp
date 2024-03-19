@@ -7,8 +7,8 @@ int main() {
     CString str_2(str_1, 2, 3);
     str_1.print();
     str_2.print();
-    str_1 = str_1.assign(str_2);
-    str_1.print();
+    str_2.assign(5, '*');
+    str_2.print();
     return 0;
 }
 

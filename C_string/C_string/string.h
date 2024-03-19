@@ -41,7 +41,6 @@ public:
     CString(const char* c_str, size_t n);
     CString(size_t n, char c);
     CString(const CString& str, size_t pos, size_t len);
-    CString(const char* str1_data, const CString& str2, size_t pos);
 
     ~CString();
 
@@ -60,11 +59,11 @@ public:
     /*size_t copy(char* buf, size_t len, size_t pos = 0) const;*/
     /*CString substr(size_t pos, size_t len) const;*/ //написано но надо довести до ума) !!!_CrtIsValidHeapPointer(block)
 
-    CString& assign(const CString& str); //Почему возвращаем ссылку на строку!!!???
-    //CString& assign(const CString& str, size_t pos, size_t len);
-    //CString& assign(const char* s);
-    //CString& assign(const char* s, size_t n);
-    //CString& assign(size_t n, char c);
+    CString& assign(const CString& str); 
+    CString& assign(const CString& str, size_t pos, size_t len);
+    CString& assign(const char* s);
+    CString& assign(const char* s, size_t n);
+    CString& assign(size_t n, char c);
 
     int compare(const CString& str) const noexcept;
     //int compare(size_t pos, size_t len, const CString& str) const;
