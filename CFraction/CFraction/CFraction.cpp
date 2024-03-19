@@ -91,6 +91,14 @@ bool Fraction::operator<=(const Fraction& fr)
 {
 	return((_denominator == fr._denominator && _numerator <= fr._numerator) || (_denominator >= fr._denominator));
 }
+bool Fraction::operator<(const Fraction& fr)
+{
+	return((_denominator == fr._denominator && _numerator < fr._numerator) || (_denominator > fr._denominator));
+}
+bool Fraction::operator>(const Fraction& fr)
+{
+	return((_denominator == fr._denominator && _numerator > fr._numerator) || (_denominator < fr._denominator));
+}
 
 Fraction Fraction::operator+(const Fraction& fr1)
 {

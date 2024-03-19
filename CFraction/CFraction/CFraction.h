@@ -15,8 +15,12 @@ public:
     void print();
     void Do_easier();
     Fraction operator=(const Fraction& fr);
+
     bool operator!=(const Fraction& fr);
     bool operator>=(const Fraction& fr);
     bool operator<=(const Fraction& fr);
+    bool operator<(const Fraction& fr);
+    bool operator>(const Fraction& fr);
+
     Fraction operator+(const Fraction& fr1);
 };

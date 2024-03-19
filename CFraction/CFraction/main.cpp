@@ -3,26 +3,26 @@
 
 int main()
 {
-	Fraction fr(1, 6);
+	Fraction fr(1, 4);
 	Fraction fr2(4, 20);
 	fr2.Do_easier();
 	fr.print();
 	fr2.print();
+	if (fr < fr2)
+	{
+		std::cout << "fr < fr2";
+	}
+	else if (fr > fr2)
+	{
+		std::cout << "fr > fr2";
+	}
 	if (fr >= fr2)
 	{
 		std::cout << "fr >= fr2";
 	}
-	else
+	else if (fr <= fr2)
 	{
 		std::cout << "fr <= fr2";
-	}
-	if (fr <= fr2)
-	{
-		std::cout << "fr <= fr2";
-	}
-	else
-	{
-		std::cout << "fr >= fr2";
 	}
 	return 0;
 }
