@@ -14,7 +14,32 @@ CString::CString() {
 /// Конструктор копирования.
 /// </summary>
 /// <param name="str"> - копируемая строка</param>
-CString::CString(const CString& str) {
+CString::CString(const char* str1_data, const CString& str2, size_t pos)
+{
+    size_t len1 = 0;
+    while (str1_data[len1] != '\0')
+    {
+        len1++;
+    }
+    size_t len2 = 0;
+    while (str2._data[len2] != '\0')
+    {
+        len2++;
+    }
+    _size = len1 + len2;
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    _data = new char[_capacity];
+    for (int i = 0; i < len1; i++)
+    {
+        _data[i] = str1_data[i];
+    }
+    for (int i = 0; i < len2; i++)
+    {
+        _data[i+pos] = str2._data[i];
+    }
+    _data[_size] = '\0';
+}
+CString::CString(const CString& str) { //добавить проверку на переполненность!!!
     _size = str._size;
     _capacity = str._capacity;
     _data = new char[_capacity];
@@ -24,7 +49,7 @@ CString::CString(const CString& str) {
     _data[_size] = '\0';
 }
 
-CString::CString(const char* c_str)
+CString::CString(const char* c_str) //добавить проверку на переполненность!!!
 {
     _size = 0;
     while (c_str[_size] != '\0')
@@ -40,7 +65,7 @@ CString::CString(const char* c_str)
     _data[_size] = '\0';
 }
 
-CString::CString(const char* c_str, size_t n)
+CString::CString(const char* c_str, size_t n) //добавить проверку на переполненность!!!
 {
     _size = 0;
     while (c_str[_size] != '\0')
@@ -55,7 +80,7 @@ CString::CString(const char* c_str, size_t n)
     }
     _data[_size-n] = '\0';
 }
-CString::CString(size_t n, char c)
+CString::CString(size_t n, char c) //добавить проверку на переполненность!!!
 {
     _size = n;
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
@@ -67,7 +92,7 @@ CString::CString(size_t n, char c)
     _data[_size] = '\0';
 }
 
-CString::CString(const CString& str, size_t pos, size_t len)
+CString::CString(const CString& str, size_t pos, size_t len) //добавить проверку на переполненность!!!
 {
     _size = 0;
     while (str._data[_size] != '\0')
@@ -124,6 +149,10 @@ Status CString::check_overfull() const noexcept
     if (_size > 0)
     {
         stat = NOT_FULL;
+        if (_capacity + STEP_CAPACITY == _max_capacity)
+        {
+            stat = CAPACITY_FULL_IN_ONE_STEP;
+        }
         if (_capacity == _max_capacity)
         {
             stat = CAPACITY_FULL;
@@ -157,11 +186,74 @@ void CString::swap(CString& str)
     {
         algorithms::swap(_data[i], str._data[i]);
     }
+    _data[_size] = '\0';
+    str._data[_size] = '\0';
 }
 
-size_t CString::copy(char* buf, size_t len, size_t pos = 0) const
+//size_t CString::copy(char* buf, size_t len, size_t pos = 0) const
+//{
+//    //???
+//}
+
+//CString CString::substr(size_t pos, size_t len) const //Дописать !!!_CrtIsValidHeapPointer(block)
+//{
+//    size_t new_capacity = (len / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+//    char* new_data;
+//    new_data = new char[new_capacity];
+//    for (int i = 0; i < len; i++)
+//    {
+//        new_data[i] = _data[i + pos];
+//    }
+//    new_data[len] = '\0';
+//    CString REP(new_data);
+//    delete[] new_data;
+//    new_data = nullptr;
+//    return REP;
+//}
+
+CString& CString::assign(const CString& str) //После return зачем то вызывает диструктор((( Спросить!!!
 {
-    //???
+    Status stat = check_overfull();
+    if (stat == SIZE_FULL)
+    {
+        std::cout << "Строка Переполнена";
+        CString ret(_data);
+        return ret;
+    }
+    else if (stat == CAPACITY_FULL)
+    {
+        if (_size + str._size >= _capacity)
+        {
+            std::cout << "Строка переполненнна!";
+            CString ret(_data);
+            return ret;
+        }
+        else
+        {
+            CString ret(_data, str, _size);
+            return ret;
+        }
+    }
+    else if (stat == CAPACITY_FULL_IN_ONE_STEP)
+    {
+        _capacity += STEP_CAPACITY;
+        if (_size + str._size >= _capacity)
+        {
+            std::cout << "Строка переполненнна!";
+            CString ret(_data);
+            return ret;
+        }
+        else
+        {
+            CString ret(_data, str, _size);
+            return ret;
+        }
+    }
+    else
+    {
+        CString ret(_data, str, _size);
+        return ret;
+    }
 }
 /// <summary>
 /// Функция сравнения (лексикографического).

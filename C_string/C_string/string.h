@@ -5,7 +5,7 @@
 
 #define STEP_CAPACITY 15
 
-enum Status { EMPTY, NOT_FULL, CAPACITY_FULL, SIZE_FULL};
+enum Status { EMPTY, NOT_FULL,CAPACITY_FULL_IN_ONE_STEP, CAPACITY_FULL, SIZE_FULL};
 
 namespace algorithms {
     template<typename T>
@@ -41,6 +41,7 @@ public:
     CString(const char* c_str, size_t n);
     CString(size_t n, char c);
     CString(const CString& str, size_t pos, size_t len);
+    CString(const char* str1_data, const CString& str2, size_t pos);
 
     ~CString();
 
@@ -56,10 +57,10 @@ public:
     const char* data() const;
 
     void swap(CString& str);
-    size_t copy(char* buf, size_t len, size_t pos = 0) const;
-    //CString substr(size_t pos, size_t len) const;
+    /*size_t copy(char* buf, size_t len, size_t pos = 0) const;*/
+    /*CString substr(size_t pos, size_t len) const;*/ //написано но надо довести до ума) !!!_CrtIsValidHeapPointer(block)
 
-    //CString& assign(const CString& str);
+    CString& assign(const CString& str); //Почему возвращаем ссылку на строку!!!???
     //CString& assign(const CString& str, size_t pos, size_t len);
     //CString& assign(const char* s);
     //CString& assign(const char* s, size_t n);
