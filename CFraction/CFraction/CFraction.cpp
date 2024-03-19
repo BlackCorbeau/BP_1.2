@@ -109,8 +109,51 @@ Fraction Fraction::operator+(const Fraction& fr1)
 	}
 	else
 	{
-		Res._denominator = Res._denominator * fr1._denominator;
 		Res._numerator = (Res._numerator * fr1._denominator) + (fr1._numerator * Res._denominator);
+		Res._denominator = Res._denominator * fr1._denominator;
 	}
+	Res.Do_easier();
 	return Res;
+}
+
+void Fraction::operator+=(const Fraction& fr1)
+{
+	if (_denominator == fr1._denominator)
+	{
+		_numerator += fr1._numerator;
+	}
+	else
+	{
+		_numerator = (_numerator * fr1._denominator) + (fr1._numerator * _denominator);
+		_denominator = _denominator * fr1._denominator;
+	}
+}
+
+Fraction Fraction::operator-(const Fraction& fr)
+{
+	Fraction Res(*this);
+	if (Res._denominator == fr._denominator)
+	{
+		Res._numerator -= fr._numerator;
+	}
+	else
+	{
+		Res._numerator = (Res._numerator * fr._denominator) - (fr._numerator * Res._denominator);
+		Res._denominator = Res._denominator * fr._denominator;
+	}
+	Res.Do_easier();
+	return Res;
+}
+
+void Fraction::operator-=(const Fraction& fr1)
+{
+	if (_denominator == fr1._denominator)
+	{
+		_numerator -= fr1._numerator;
+	}
+	else
+	{
+		_numerator = (_numerator * fr1._denominator) - (fr1._numerator * _denominator);
+		_denominator = _denominator * fr1._denominator;
+	}
 }

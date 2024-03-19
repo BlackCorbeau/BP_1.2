@@ -23,4 +23,8 @@ public:
     bool operator>(const Fraction& fr);
 
     Fraction operator+(const Fraction& fr1);
+    void operator+=(const Fraction& fr1);
+
+    Fraction operator-(const Fraction& fr);
+    void operator-=(const Fraction& fr);
 };
