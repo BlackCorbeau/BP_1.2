@@ -68,21 +68,6 @@ void Fraction::Do_easier()
 	_numerator /= n;
 }
 
-Fraction Fraction::operator+(const Fraction& fr1)
-{
-	Fraction Res(*this);
-	if (Res._denominator == fr1._denominator)
-	{
-		Res._numerator += fr1._numerator;
-	}
-	else
-	{
-		Res._denominator = Res._denominator * fr1._denominator;
-		Res._numerator = (Res._numerator * fr1._denominator) + (fr1._numerator * Res._denominator);
-	}
-	return Res;
-}
-
 Fraction Fraction::operator=(const Fraction& fr)
 {
 	if (this != &fr)
@@ -96,4 +81,28 @@ Fraction Fraction::operator=(const Fraction& fr)
 bool Fraction::operator!=(const Fraction& fr)
 {
 	return (_denominator != fr._denominator && _numerator != fr._numerator);
+}
+
+bool Fraction::operator>=(const Fraction& fr)
+{
+	return ((_denominator == fr._denominator && _numerator >= fr._numerator) || (_denominator <= fr._denominator));
+}
+bool Fraction::operator<=(const Fraction& fr)
+{
+	return((_denominator == fr._denominator && _numerator <= fr._numerator) || (_denominator >= fr._denominator));
+}
+
+Fraction Fraction::operator+(const Fraction& fr1)
+{
+	Fraction Res(*this);
+	if (Res._denominator == fr1._denominator)
+	{
+		Res._numerator += fr1._numerator;
+	}
+	else
+	{
+		Res._denominator = Res._denominator * fr1._denominator;
+		Res._numerator = (Res._numerator * fr1._denominator) + (fr1._numerator * Res._denominator);
+	}
+	return Res;
 }
