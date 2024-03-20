@@ -69,11 +69,7 @@ CString::CString(size_t n, char c) //добавить проверку на переполненность!!!
 
 CString::CString(const CString& str, size_t pos, size_t len) //добавить проверку на переполненность!!!
 {
-    _size = 0;
-    while (str._data[_size] != '\0')
-    {
-        _size++;
-    }
+    _size = len;
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _data = new char[_capacity];
     for (int i = 0; i < len; i++)
@@ -410,6 +406,14 @@ void CString::resize(size_t n)
     {
         _data[i + _size] = '\0';
     }
+    _data[n + _size] = '\0';
+}
+
+void CString::push_back(char c)
+{
+    this->resize(1);
+    _data[_size] = c;
+    _size += 1;
 }
 /*
 /// <summary>

@@ -76,7 +76,7 @@ public:
     void resize(size_t n);     // изменение длины строки
     void reserve(size_t n = 0);               // увеличение хранилища
 
-    //void push_back(char c);                   // вставка символа (в конец)
+    void push_back(char c);                   // вставка символа (в конец)
     void pop_back();                          // удаление символа (из конца)
 
     //CString& erase(size_t pos, size_t len);    // удаление участка
