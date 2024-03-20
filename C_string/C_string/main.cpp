@@ -7,7 +7,7 @@ int main() {
     CString str_2(str_1, 2, 6);
     str_1.print();
     str_2.print();
-    str_2.clear();
+    str_2.resize(10);
     str_2.print();
     return 0;
 }

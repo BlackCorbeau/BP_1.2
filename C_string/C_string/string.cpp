@@ -385,6 +385,30 @@ void CString::clear() noexcept
     _data = new char[_capacity];
     _data[0] = '\0';
 }
+
+void CString::resize(size_t n)
+{
+    size_t new_size = _size + n;
+    _capacity = (new_size / STEP_CAPACITY)* STEP_CAPACITY + STEP_CAPACITY;
+    char* new_data;
+    new_data = new char[_capacity];
+    for (int i = 0; i < _size; i++)
+    {
+        new_data[i] = _data[i];
+    }
+    for (int i = 0; i < new_size; i++)
+    {
+        new_data[i + _size] = '\0';
+    }
+    delete _data;
+    _data = new char[n * STEP_CAPACITY];
+    for (int i = 0; i < n; i++)
+    {
+        _data[i] = new_data[i];
+    }
+    _data[new_size] = '\0';
+
+}
 /*
 /// <summary>
 /// Вставка символа в конец строки.
