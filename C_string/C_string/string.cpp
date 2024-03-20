@@ -275,19 +275,107 @@ CString& CString::assign(size_t n, char c)
 /// 0 - если строки совпадают.
 /// </returns>
 int CString::compare(const CString& str) const noexcept {
-    for (size_t i = 0; i < algorithms::min(_size, str._size); i++) {
-        if (this->_data[i] < str._data[i]) {
-            return 1;
-        }
-        else if (this->_data[i] > str._data[i]) {
-            return -1;
-        }
-    }
     if (this->_size > str._size) return 1;
     else if (this->_size < str._size) return -1;
-    else return 0;
+    else {
+        for (size_t i = 0; i < algorithms::min(_size, str._size); i++) {
+            if (this->_data[i] < str._data[i]) {
+                return -1;
+            }
+            else if (this->_data[i] > str._data[i]) {
+                return 11;
+            }
+        }
+        return 0;
+    }
 }
 
+int CString::compare(size_t pos, size_t len, const CString& str) const
+{
+    if(len > str._size) return 1;
+    else if (len < str._size) return -1;
+    else {
+        for (size_t i = 0; i < algorithms::min(len, str._size); i++)
+        {
+            if (this->_data[i + pos] < str._data[i]) return -1;
+            else if (this->_data[i + pos] > str._data[i]) return 1;
+        }
+        return 0;
+    }
+}
+int CString::compare(size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen) const
+{
+    if (len > sublen) return 1;
+    else if (len < sublen) return -1;
+    else 
+    {
+        for (size_t i = 0; i < algorithms::min(len, sublen); i++)
+        {
+            if (this->_data[i + pos] < str._data[i + subpos]) return -1;
+            else if (this->_data[i + pos] > str._data[i + subpos]) return 1;
+        }
+        return 0;
+    }
+}
+
+int CString::compare(const char* s) const
+{
+    size_t len = 0;
+    while (s[len] != '\0')
+    {
+        len++;
+    }
+    if (_size > len) return 1;
+    else if (_size < len) return -1;
+    else
+    {
+        for (size_t i = 0; i < algorithms::min(_size, len); i++)
+        {
+            if (this->_data[i] < s[i]) return -1;
+            else if (this->_data[i] > s[i]) return 1;
+        }
+        return 0;
+    }
+}
+
+int CString::compare(size_t pos, size_t len, const char* s) const
+{
+    size_t _len = 0;
+    while (s[_len] != '\0')
+    {
+        _len++;
+    }
+    if (len > _len) return 1;
+    else if (len < _len) return -1;
+    else {
+        for (size_t i = 0; i < algorithms::min(len, _len); i++)
+        {
+            if (this->_data[i + pos] < s[i]) return -1;
+            else if (this->_data[i + pos] > s[i]) return 1;
+        }
+        return 0;
+    }
+}
+
+int CString::compare(size_t pos, size_t len, const char* s, size_t n) const
+{
+    size_t _len = 0;
+    while (s[_len] != '\0')
+    {
+        _len++;
+    }
+    if (len > _len) return 1;
+    else if (len < _len) return -1;
+    else
+    {
+        for (size_t i = 0; i < algorithms::min(len, _len); i++)
+        {
+            if (this->_data[i + pos] < s[i + n]) return -1;
+            else if (this->_data[i + pos] > s[i + n]) return 1;
+        }
+        return 0;
+    }
+}
 /*
 /// <summary>
 /// Вставка символа в конец строки.

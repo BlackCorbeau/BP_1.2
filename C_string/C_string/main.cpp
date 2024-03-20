@@ -4,11 +4,11 @@
 int main() {
     char test[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0' };
     CString str_1(test);
-    CString str_2(str_1, 2, 3);
+    CString str_2(str_1, 2, 6);
     str_1.print();
     str_2.print();
-    str_2.assign(5, '*');
-    str_2.print();
+    int i = str_2.compare(1, 3, test, 4);
+    std::cout << i;
     return 0;
 }
 

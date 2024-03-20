@@ -66,11 +66,11 @@ public:
     CString& assign(size_t n, char c);
 
     int compare(const CString& str) const noexcept;
-    //int compare(size_t pos, size_t len, const CString& str) const;
-    //int compare(size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen) const;
-    //int compare(const char* s) const;
-    //int compare(size_t pos, size_t len, const char* s) const;
-    //int compare(size_t pos, size_t len, const char* s, size_t n) const;
+    int compare(size_t pos, size_t len, const CString& str) const;
+    int compare(size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen) const;
+    int compare(const char* s) const;
+    int compare(size_t pos, size_t len, const char* s) const;
+    int compare(size_t pos, size_t len, const char* s, size_t n) const;
 
     //void clear() noexcept;                    // очистка строки
     //void resize(size_t n, char c = '\0');     // изменение длины строки
