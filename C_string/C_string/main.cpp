@@ -4,9 +4,18 @@
 int main() {
     char test[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0' };
     CString str_1(test);
+    CString str_3;
     CString str_2(str_1, 2, 6);
     str_1.print();
-    str_1.erase(2, 4);
+    str_1.append(str_2);
+    str_1.print();
+    str_1.append(str_2, 1, 4);
+    str_1.print();
+    str_1.append(test);
+    str_1.print();
+    str_1.append(8, '*');
+    str_1.print();
+    str_1.append(8, '*');
     str_1.print();
     str_2.print();
     str_2.push_back('*');

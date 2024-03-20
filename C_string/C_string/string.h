@@ -82,12 +82,12 @@ public:
 
     CString& erase(size_t pos, size_t len);    // удаление участка
 
-    // вставка строки (в конец)
-    //CString& append(const CString& str);
-    //CString& append(const CString& str, size_t subpos, size_t sublen);
-    //CString& append(const char* s);
-    //CString& append(const char* s, size_t n);
-    //CString& append(size_t n, char c);
+    //вставка строки (в конец)
+    CString& append(const CString& str);
+    CString& append(const CString& str, size_t subpos, size_t sublen);
+    CString& append(const char* s);
+    CString& append(const char* s, size_t n);
+    CString& append(size_t n, char c);
 
     // вставка строки (после указанной позиции)
     //CString& insert(size_t pos, const CString& str);

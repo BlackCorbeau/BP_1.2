@@ -495,6 +495,75 @@ CString& CString::erase(size_t pos, size_t len)
     return *this;
 }
 
+CString& CString::append(const CString& str)
+{
+    this->reserve(str._size);
+    for (int i = 0; i < str._size; i++)
+    {
+        _data[i + _size] = str._data[i];
+    }
+    _data[_size + str._size] = '\0';
+    _size += str._size;
+    return *this;
+}
+
+CString& CString::append(const CString& str, size_t subpos, size_t sublen)
+{
+    this->reserve(sublen);
+    for (int i = 0; i < sublen; i++)
+    {
+        _data[i + _size] = str._data[i +subpos];
+    }
+    _data[_size + sublen] = '\0';
+    _size += sublen;
+    return *this;
+}
+
+CString& CString::append(const char* s)
+{
+    size_t s_size = 0;
+    while (s[s_size] != '\0')
+    {
+        s_size++;
+    }
+    this->reserve(s_size);
+    for (int i = 0; i < s_size; i++)
+    {
+        _data[i + _size] = s[i];
+    }
+    _data[_size + s_size] = '\0';
+    _size += s_size;
+    return *this;
+}
+
+CString& CString::append(const char* s, size_t n)
+{
+    size_t s_size = 0;
+    while (s[s_size] != '\0')
+    {
+        s_size++;
+    }
+    this->reserve(s_size);
+    for (int i = 0; i < s_size; i++)
+    {
+        _data[i + _size] = s[i + n];
+    }
+    _data[_size + s_size] = '\0';
+    _size += s_size;
+    return *this;
+}
+
+CString& CString::append(size_t n, char c)
+{
+    this->reserve(n);
+    for (int i = 0; i < n; i++)
+    {
+        _data[i + _size] = c;
+    }
+    _data[_size + n] = '\0';
+    _size += n;
+    return *this;
+}
 /*
 // лишь пример реализации
 /// <summary>
