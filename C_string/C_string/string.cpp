@@ -463,6 +463,35 @@ void CString::pop_back() {
 
 CString& CString::erase(size_t pos, size_t len)
 {
+    char* new_data;
+    new_data = new char[_capacity];
+    int i = 0;
+    int i1 = 0;
+    while(i1 <= _size)
+    {
+        if (i1 < pos)
+        {
+            new_data[i] = _data[i];
+            i++;
+        }
+        else if (i1 > pos + len)
+        {
+            new_data[i] = _data[i + len];
+            i++;
+        }
+        i1++;
+    }
+    _size = i;
+    new_data[_size] = '\0';
+    delete _data;
+    _data = new char[_capacity];
+    for (int i = 0; i < _size; i++)
+    {
+        _data[i] = new_data[i];
+    }
+    _data[_size] = '\0';
+    delete new_data;
+    this->update(_size);
     return *this;
 }
 
