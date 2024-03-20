@@ -7,8 +7,8 @@ int main() {
     CString str_2(str_1, 2, 6);
     str_1.print();
     str_2.print();
-    int i = str_2.compare(1, 3, test, 4);
-    std::cout << i;
+    str_2.clear();
+    str_2.print();
     return 0;
 }
 

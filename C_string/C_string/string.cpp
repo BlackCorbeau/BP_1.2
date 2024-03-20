@@ -376,6 +376,15 @@ int CString::compare(size_t pos, size_t len, const char* s, size_t n) const
         return 0;
     }
 }
+
+void CString::clear() noexcept
+{
+    delete _data;
+    _size = 0;
+    _capacity = 0 + STEP_CAPACITY;
+    _data = new char[_capacity];
+    _data[0] = '\0';
+}
 /*
 /// <summary>
 /// Вставка символа в конец строки.
