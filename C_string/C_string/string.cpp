@@ -415,6 +415,26 @@ void CString::push_back(char c)
     _data[_size] = c;
     _size += 1;
 }
+
+void CString::update(const size_t __size)
+{
+    _size = __size;
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    char* new_data;
+    new_data = new char[_capacity];
+    for (int i = 0; i < _size; i++)
+    {
+        new_data[i] = _data[i];
+    }
+    delete _data;
+    _data = new char[_capacity];
+    for (int i = 0; i < _size; i++)
+    {
+        _data[i] = new_data[i];
+    }
+    _data[_size] = '\0';
+}
+
 /*
 /// <summary>
 /// Вставка символа в конец строки.
@@ -439,6 +459,11 @@ void CString::pop_back() {
                   \"void pop_back()\": source CString is empty");
     }
     _data[--_size] = '\0';
+}
+
+CString& CString::erase(size_t pos, size_t len)
+{
+    return *this;
 }
 
 /*

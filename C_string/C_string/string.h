@@ -74,12 +74,13 @@ public:
 
     void clear() noexcept;                    // очистка строки
     void resize(size_t n);     // изменение длины строки
-    void reserve(size_t n = 0);               // увеличение хранилища
+    void reserve(size_t n = 0);// увеличение хранилища
+    void update(const size_t __size);
 
     void push_back(char c);                   // вставка символа (в конец)
     void pop_back();                          // удаление символа (из конца)
 
-    //CString& erase(size_t pos, size_t len);    // удаление участка
+    CString& erase(size_t pos, size_t len);    // удаление участка
 
     // вставка строки (в конец)
     //CString& append(const CString& str);

@@ -7,7 +7,9 @@ int main() {
     CString str_2(str_1, 2, 6);
     str_1.print();
     str_2.print();
-    str_2.push_back('*');
+    str_2.reserve(25);
+    size_t i = str_2.size();
+    str_2.update(i);
     str_2.print();
     return 0;
 }
