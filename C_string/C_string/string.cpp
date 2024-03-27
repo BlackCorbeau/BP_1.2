@@ -708,6 +708,108 @@ CString& CString::insert(size_t pos, size_t n, char c) // Работатет но вызывает 
     delete[] new_data;
     return *this;
 }
+
+CString& CString::replace(size_t pos, size_t len, const CString& str)
+{
+    this->reserve(str._size);
+    char* new_data;
+    new_data = new char[_capacity];
+    for (int i = pos + len; i < _size; i++)
+    {
+        new_data[i - pos - len] = _data[i];
+    }
+    _size -= len;
+    for (int i = 0; i < _size + str._size; i++)
+    {
+        _data[i + pos] = str._data[i];
+    }
+    for (int i = 0; i < _size + str._size; i++)
+    {
+        _data[i + pos + str._size] = new_data[i];
+    }
+    _size += str._size;
+    _data[_size] = '\0';
+    delete[] new_data;
+    return *this;
+}
+
+CString& CString::replace(size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen)
+{
+    this->reserve(sublen);
+    char* new_data;
+    new_data = new char[_capacity];
+    for (int i = pos + len; i < _size; i++)
+    {
+        new_data[i - pos - len] = _data[i];
+    }
+    _size -= len;
+    for (int i = 0; i < _size + sublen; i++)
+    {
+        _data[i + pos] = str._data[i + subpos];
+    }
+    for (int i = 0; i < _size + sublen; i++)
+    {
+        _data[i + pos + sublen] = new_data[i];
+    }
+    _size += sublen;
+    _data[_size] = '\0';
+    delete[] new_data;
+    return *this;
+}
+
+CString& CString::replace(size_t pos, size_t len, const char* s, size_t n) // Не работает, утечка памяти после return 0
+{
+    int sublen = 0;
+    while (s[sublen] != '\0')
+    {
+        sublen++;
+    }
+    sublen -= n;
+    this->reserve(sublen);
+    char* new_data;
+    new_data = new char[_capacity];
+    for (int i = pos + len; i < _size; i++)
+    {
+        new_data[i - pos - len] = _data[i];
+    }
+    _size -= len;
+    for (int i = 0; i < _size + sublen; i++)
+    {
+        _data[i + pos] = s[i + n];
+    }
+    for (int i = 0; i < _size + sublen; i++)
+    {
+        _data[i + pos + sublen] = new_data[i];
+    }
+    _size += sublen;
+    _data[_size] = '\0';
+    delete[] new_data;
+    return *this;
+}
+
+CString& CString::replace(size_t pos, size_t len, size_t n, char c)
+{
+    this->reserve(n);
+    char* new_data;
+    new_data = new char[_capacity];
+    for (int i = pos + len; i < _size; i++)
+    {
+        new_data[i - pos - len] = _data[i];
+    }
+    _size -= len;
+    for (int i = 0; i < _size + n; i++)
+    {
+        _data[i + pos] = c;
+    }
+    for (int i = 0; i < _size + n; i++)
+    {
+        _data[i + pos + n] = new_data[i];
+    }
+    _size += n;
+    _data[_size] = '\0';
+    delete[] new_data;
+    return *this;
+}
 /*
 // лишь пример реализации
 /// <summary>

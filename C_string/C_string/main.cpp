@@ -6,7 +6,7 @@ int main() {
     CString str_1(test);
     CString str_2(test);
     str_1.print();
-    str_1.insert(3, 5, '*');
+    str_1.replace(4, 3, 9, '*');
     str_1.print();
     str_2.print();
     str_2.push_back('*');

@@ -97,10 +97,10 @@ public:
     CString& insert(size_t pos, size_t n, char c);
 
     // замена участка заданной строкой
-    //CString& replace(size_t pos, size_t len, const CString& str);
-    //CString& replace(size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen);
-    //CString& replace(size_t pos, size_t len, const char* s, size_t n);
-    //CString& replace(size_t pos, size_t len, size_t n, char c);
+    CString& replace(size_t pos, size_t len, const CString& str);
+    CString& replace(size_t pos, size_t len, const CString& str, size_t subpos, size_t sublen);
+    CString& replace(size_t pos, size_t len, const char* s, size_t n);
+    CString& replace(size_t pos, size_t len, size_t n, char c);
 
     // поиск подстроки в строке начиная с некоторой позиции
     //size_t find(const CString& str, size_t pos = 0) const;
