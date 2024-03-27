@@ -391,7 +391,7 @@ void CString::reserve(size_t n)
     {
         new_data[i] = _data[i];
     }
-    delete _data;
+    delete[] _data;
     _data = new char[_capacity];
     for (int i = 0; i < _size; i++)
     {
@@ -562,6 +562,150 @@ CString& CString::append(size_t n, char c)
     }
     _data[_size + n] = '\0';
     _size += n;
+    return *this;
+}
+
+CString& CString::insert(size_t pos, const CString& str) // Работает 
+{
+    this->reserve(str._size);
+    int counter = 0;
+    char* new_data;
+    new_data = new char[_capacity];
+    for (int i = 0; i < _size-pos; i++)
+    {
+        new_data[i] = _data[i + pos];
+        counter += 1;
+    }
+    for (int i = 0; i < str._size; i ++)
+    {
+        _data[i + pos] = str._data[i];
+    }
+    for (int i = 0; i < _size + str._size; i++)
+    {
+        _data[i + ((_size - counter) + str._size)] = new_data[i];
+    }
+    _data[_size + str._size] = '\0';
+    _size += str._size;
+    delete[] new_data;
+    return *this;
+}
+
+CString& CString::insert(size_t pos, const CString& str, size_t subpos, size_t sublen) // Работатет но вызывает переполнение памяти после return 0
+{
+    this->reserve(sublen);
+    int counter = 0;
+    char* new_data;
+    char* _new_data;
+    new_data = new char[_capacity];
+    _new_data = new char[_capacity];
+    for (int i = 0; i < _size - pos; i++)
+    {
+        new_data[i] = _data[i + pos];
+        counter += 1;
+    }
+    for (int i = 0; i < str._size - subpos; i++)
+    {
+        _new_data[i] = _data[i + subpos];
+    }
+    for (int i = 0; i < sublen; i++)
+    {
+        _data[i + pos] = _new_data[i];
+    }
+    for (int i = 0; i < _size + sublen; i++)
+    {
+        _data[i + ((_size - counter) + sublen)] = new_data[i];
+    }
+    _data[_size + sublen] = '\0';
+    _size += sublen;
+    delete[] new_data;
+    new_data = nullptr;
+    delete[] _new_data;
+    _new_data = nullptr;
+    return *this;
+}
+
+CString& CString::insert(size_t pos, const char* s) // Работает
+{
+    size_t new_size = 0;
+    while (s[new_size] != '\0')
+    {
+        new_size++;
+    }
+    this->reserve(new_size);
+    int counter = 0;
+    char* new_data;
+    new_data = new char[_capacity];
+    for (int i = 0; i < _size - pos; i++)
+    {
+        new_data[i] = _data[i + pos];
+        counter += 1;
+    }
+    for (int i = 0; i < new_size; i++)
+    {
+        _data[i + pos] = s[i];
+    }
+    for (int i = 0; i < _size + new_size; i++)
+    {
+        _data[i + ((_size - counter) + new_size)] = new_data[i];
+    }
+    _data[_size + new_size] = '\0';
+    _size += new_size;
+    delete[] new_data;
+    return *this;
+}
+
+CString& CString::insert(size_t pos, const char* s, size_t n) // Работатет но вызывает переполнение памяти после return 0
+{
+    size_t new_size = 0;
+    while (s[new_size] != '\0')
+    {
+        new_size++;
+    }
+    this->reserve(new_size-n);
+    int counter = 0;
+    char* new_data;
+    new_data = new char[_capacity];
+    for (int i = 0; i < _size - pos; i++)
+    {
+        new_data[i] = _data[i + pos];
+        counter += 1;
+    }
+    for (int i = 0; i < new_size-n; i++)
+    {
+        _data[i + pos] = s[i + n];
+    }
+    for (int i = 0; i < _size + new_size-n; i++)
+    {
+        _data[i + ((_size - counter) + new_size-n)] = new_data[i];
+    }
+    _data[_size + new_size-n] = '\0';
+    _size += new_size-n;
+    delete[] new_data;
+    return *this;
+}
+
+CString& CString::insert(size_t pos, size_t n, char c) // Работатет но вызывает переполнение памяти после return 0
+{
+    this->reserve(n);
+    int counter = 0;
+    char* new_data;
+    new_data = new char[_capacity];
+    for (int i = 0; i < _size - pos; i++)
+    {
+        new_data[i] = _data[i + pos];
+        counter += 1;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        _data[i + pos] = c;
+    }
+    for (int i = 0; i < _size + n; i++)
+    {
+        _data[i + ((_size - counter) + n)] = new_data[i];
+    }
+    _data[_size + n] = '\0';
+    _size += n;
+    delete[] new_data;
     return *this;
 }
 /*
