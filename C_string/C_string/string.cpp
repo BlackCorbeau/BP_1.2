@@ -54,6 +54,7 @@ CString::CString(const char* c_str, size_t n) //добавить проверку на переполненн
         _data[i-n] = c_str[i];
     }
     _data[_size-n] = '\0';
+    _size -= n;
 }
 CString::CString(size_t n, char c) //добавить проверку на переполненность!!!
 {
@@ -810,6 +811,114 @@ CString& CString::replace(size_t pos, size_t len, size_t n, char c)
     delete[] new_data;
     return *this;
 }
+
+size_t CString::find(const CString& str) const
+{
+    size_t pos = -1;
+    int i = 0;
+    while (i + str._size != _size + 1)
+    {
+        for (int c = 0; c < str._size; c++)
+        {
+            if (str._data[c] == _data[i + c])
+            {
+                pos = i;
+                if (c == str._size - 1)
+                {
+                    return pos + 1;
+                }
+                continue;
+            }
+            else
+            {
+                pos = -1;
+                break;
+            }
+        }
+        i++;
+    }
+    return pos;
+}
+size_t CString::find(const char* s) const
+{
+    int sublen = 0;
+    while (s[sublen] != '\0')
+    {
+        sublen++;
+    }
+    size_t pos = -1;
+    int i = 0;
+    while (i + sublen != _size + 1)
+    {
+        for (int c = 0; c < sublen; c++)
+        {
+            if (s[c] == _data[i + c])
+            {
+                pos = i;
+                if (c == sublen - 1)
+                {
+                    return pos + 1;
+                }
+                continue;
+            }
+            else
+            {
+                pos = -1;
+                break;
+            }
+        }
+        i++;
+    }
+    return pos;
+}
+
+size_t CString::find(const char* s, size_t pos, size_t n) const
+{
+    int sublen = 0;
+    while (s[sublen] != '\0')
+    {
+        sublen++;
+    }
+    size_t _pos = -1;
+    int i = 0;
+    while (i + n != _size + 1)
+    {
+        for (int c = 0; c < n; c++)
+        {
+            if (s[c + pos] == _data[i + c])
+            {
+                _pos = i;
+                if (c == n - 1)
+                {
+                    return _pos + 1;
+                }
+                continue;
+            }
+            else
+            {
+                _pos = -1;
+                break;
+            }
+        }
+        i++;
+    }
+    return pos;
+}
+
+size_t CString::find(char c) const
+{
+    size_t res = -1;
+    for (int i = 0; i < _size; i++)
+    {
+        if (_data[i] == c)
+        {
+            res = i;
+            return res;
+        }
+    }
+    return res;
+}
+
 /*
 // лишь пример реализации
 /// <summary>

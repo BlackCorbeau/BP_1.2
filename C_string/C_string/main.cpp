@@ -2,11 +2,14 @@
 #include "string.h"
 
 int main() {
+    char test1[4] = { '4', '5', '6', '\0' };
     char test[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0' };
     CString str_1(test);
-    CString str_2(test);
+    CString str_2(test1);
     str_1.print();
-    str_1.replace(4, 3, 9, '*');
+    str_2.print();
+    size_t pos = str_1.find(test, 2, 2);
+    std::cout << pos << '\n';
     str_1.print();
     str_2.print();
     str_2.push_back('*');
