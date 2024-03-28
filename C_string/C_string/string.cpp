@@ -998,3 +998,100 @@ size_t CString::find_first_of(char c, size_t pos) const
     }
     return -1;
 }
+
+size_t CString::find_first_not_of(const CString& str, size_t pos) const
+{
+    char* new_data;
+    int k = 0;
+    new_data = new char[_size];
+    for (int i = 0; i < this->_size; i++)
+    {
+        bool found = false;
+        for (int j = 0; j < str._size; j++)
+        {
+            if (this->_data[i] == str._data[j])
+            {
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            new_data[k] = this->_data[i];
+            k++;
+        }
+    }
+    return this->find_first_of(new_data);
+}
+
+size_t CString::find_first_not_of(const char* s, size_t pos) const
+{
+    int sublean = 0;
+    while (s[sublean] != '\0')
+    {
+        sublean++;
+    }
+    char* new_data;
+    int k = 0;
+    new_data = new char[_size];
+    for (int i = 0; i < this->_size; i++)
+    {
+        bool found = false;
+        for (int j = 0; j < sublean; j++)
+        {
+            if (this->_data[i] == s[j])
+            {
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            new_data[k] = this->_data[i];
+            k++;
+        }
+    }
+    return this->find_first_of(new_data);
+}
+
+size_t CString::find_first_not_of(const char* s, size_t pos, size_t n) const
+{
+    int sublean = 0;
+    while (s[sublean] != '\0')
+    {
+        sublean++;
+    }
+    char* new_data;
+    int k = 0;
+    new_data = new char[_size];
+    for (int i = pos; i < this->_size; i++)
+    {
+        bool found = false;
+        for (int j = n; j < sublean; j++)
+        {
+            if (this->_data[i] == s[j])
+            {
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            new_data[k] = this->_data[i];
+            k++;
+        }
+    }
+    return this->find_first_of(new_data);
+}
+
+size_t CString::find_first_not_of(char c, size_t pos) const
+{
+    for (int i = 0; i < _size; i++)
+    {
+        if (_data[i] != c)
+        {
+            return i;
+        }
+    }
+    return -1;
+}

@@ -115,8 +115,8 @@ public:
     size_t find_first_of(char c, size_t pos = 0) const;
 
     // поиск одного НЕ из перечисленных символов в строке начиная с некоторой позиции
-    //size_t find_first_not_of(const CString& str, size_t pos = 0) const;
-    //size_t find_first_not_of(const char* s, size_t pos = 0) const;
-    //size_t find_first_not_of(const char* s, size_t pos, size_t n) const;
-    //size_t find_first_not_of(char c, size_t pos = 0) const;
+    size_t find_first_not_of(const CString& str, size_t pos = 0) const;
+    size_t find_first_not_of(const char* s, size_t pos = 0) const;
+    size_t find_first_not_of(const char* s, size_t pos, size_t n) const;
+    size_t find_first_not_of(char c, size_t pos = 0) const;
 };
