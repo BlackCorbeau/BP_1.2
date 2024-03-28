@@ -952,3 +952,49 @@ size_t CString::find_first_of(const CString& str, size_t pos) const {
     }
     return -1;
 }
+
+size_t CString::find_first_of(const char* s, size_t pos) const
+{
+    int sublean = 0;
+    while (s[sublean] != '\0')
+    {
+        sublean++;
+    }
+    for (size_t i = pos; i < _size; i++) {
+        for (size_t j = 0; j < sublean; j++) {
+            if (_data[i] == s[j]) {
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+size_t CString::find_first_of(const char* s, size_t pos, size_t n) const
+{
+    int sublean = 0;
+    while (s[sublean] != '\0')
+    {
+        sublean++;
+    }
+    for (size_t i = pos; i < _size; i++) {
+        for (size_t j = n; j < sublean; j++) {
+            if (_data[i] == s[j]) {
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+size_t CString::find_first_of(char c, size_t pos) const
+{
+    for (int i = 0; i < _size; i++)
+    {
+        if (_data[i] == c)
+        {
+            return i;
+        }
+    }
+    return -1;
+}

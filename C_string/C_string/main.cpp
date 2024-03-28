@@ -8,7 +8,7 @@ int main() {
     CString str_2(test1);
     str_1.print();
     str_2.print();
-    size_t pos = str_1.find(test, 2, 2);
+    size_t pos = str_1.find_first_of('8');
     std::cout << pos << '\n';
     str_1.print();
     str_2.print();
