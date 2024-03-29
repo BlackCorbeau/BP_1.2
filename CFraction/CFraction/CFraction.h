@@ -1,3 +1,4 @@
+#include <iostream>
 #pragma once
 class Fraction {
     int _numerator;       // числитель
@@ -34,6 +35,15 @@ public:
     Fraction operator/(const Fraction& fr);
     void operator/=(const Fraction& fr);
 
-    //<<
-    //>>
+    friend std::istream& operator>>(std::istream& cin, Fraction& c)
+    {
+        cin >> c._numerator >> c._denominator;
+        return cin;
+    }
+
+    friend std::ostream& operator<<(std::ostream& cout, Fraction& c)
+    {
+        cout << c._numerator << "/" << c._denominator;
+        return cout;
+    }
 };

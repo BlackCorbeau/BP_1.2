@@ -7,8 +7,8 @@ int main()
 	Fraction fr2(8, 20);
 	Fraction Fr3;
 	fr2.Do_easier();
-	fr.print();
-	fr2.print();
+	std::cout << fr << '\n';
+	std::cout << fr2 << '\n';
 	Fr3 = fr / fr2;
 	fr /= fr2;
 	Fr3.print();
