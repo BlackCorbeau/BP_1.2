@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+C_string/
+Date_time_project/
+x64/
+.vs/
+CFraction/
