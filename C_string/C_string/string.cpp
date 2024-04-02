@@ -655,7 +655,7 @@ CString& CString::insert(size_t pos, const char* s) // Работает
     return *this;
 }
 
-CString& CString::insert(size_t pos, const char* s, size_t n) // Работатет но вызывает переполнение памяти после return 0
+CString& CString::insert(size_t pos, const char* s, size_t n) // Работатет но вызывает утечку памяти после return 0
 {
     size_t new_size = 0;
     while (s[new_size] != '\0')
@@ -685,7 +685,7 @@ CString& CString::insert(size_t pos, const char* s, size_t n) // Работатет но вы
     return *this;
 }
 
-CString& CString::insert(size_t pos, size_t n, char c) // Работатет но вызывает переполнение памяти после return 0
+CString& CString::insert(size_t pos, size_t n, char c) // Работатет но вызывает утечку памяти после return 0
 {
     this->reserve(n);
     int counter = 0;
