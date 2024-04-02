@@ -393,12 +393,9 @@ void CString::reserve(size_t n)
         new_data[i] = _data[i];
     }
     delete[] _data;
-    _data = new char[_capacity];
-    for (int i = 0; i < _size; i++)
-    {
-        _data[i] = new_data[i];
-    }
+    _data = new_data;
     _data[_size] = '\0';
+
 }
 void CString::resize(size_t n)
 {
@@ -591,37 +588,20 @@ CString& CString::insert(size_t pos, const CString& str) // Работает
     return *this;
 }
 
-CString& CString::insert(size_t pos, const CString& str, size_t subpos, size_t sublen) // Работатет но вызывает переполнение памяти после return 0
+CString& CString::insert(size_t pos, const CString& str, size_t subpos, size_t sublen) 
 {
     this->reserve(sublen);
     int counter = 0;
-    char* new_data;
-    char* _new_data;
-    new_data = new char[_capacity];
-    _new_data = new char[_capacity];
-    for (int i = 0; i < _size - pos; i++)
+    for (int i = _size-1; i >= pos; i--)
     {
-        new_data[i] = _data[i + pos];
-        counter += 1;
+        _data[i + sublen] = _data[i];
     }
-    for (int i = 0; i < str._size - subpos; i++)
+    for (int i = pos, j = subpos; i < sublen + pos; i++, j++)
     {
-        _new_data[i] = _data[i + subpos];
-    }
-    for (int i = 0; i < sublen; i++)
-    {
-        _data[i + pos] = _new_data[i];
-    }
-    for (int i = 0; i < _size + sublen; i++)
-    {
-        _data[i + ((_size - counter) + sublen)] = new_data[i];
+        _data[i] = str._data[j];
     }
     _data[_size + sublen] = '\0';
     _size += sublen;
-    delete[] new_data;
-    new_data = nullptr;
-    delete[] _new_data;
-    _new_data = nullptr;
     return *this;
 }
 
@@ -655,58 +635,41 @@ CString& CString::insert(size_t pos, const char* s) // Работает
     return *this;
 }
 
-CString& CString::insert(size_t pos, const char* s, size_t n) // Работатет но вызывает утечку памяти после return 0
+CString& CString::insert(size_t pos, const char* s, size_t n) 
 {
     size_t new_size = 0;
-    while (s[new_size] != '\0')
+    while (s[n + new_size] != '\0')
     {
         new_size++;
     }
-    this->reserve(new_size-n);
-    int counter = 0;
-    char* new_data;
-    new_data = new char[_capacity];
-    for (int i = 0; i < _size - pos; i++)
+    this->reserve(new_size);
+    for (int i = _size - 1; i >= pos ; i--)
     {
-        new_data[i] = _data[i + pos];
-        counter += 1;
+        _data[i + new_size] = _data[i];
     }
-    for (int i = 0; i < new_size-n; i++)
+    for (int i = pos, j = 0; i < new_size + 1; i++, j ++)
     {
-        _data[i + pos] = s[i + n];
+        _data[i] = s[j];
     }
-    for (int i = 0; i < _size + new_size-n; i++)
-    {
-        _data[i + ((_size - counter) + new_size-n)] = new_data[i];
-    }
-    _data[_size + new_size-n] = '\0';
-    _size += new_size-n;
-    delete[] new_data;
+    _data[_size + new_size] = '\0';
+    _size += new_size;
     return *this;
 }
 
-CString& CString::insert(size_t pos, size_t n, char c) // Работатет но вызывает утечку памяти после return 0
+CString& CString::insert(size_t pos, size_t n, char c) 
 {
     this->reserve(n);
-    int counter = 0;
-    char* new_data;
-    new_data = new char[_capacity];
-    for (int i = 0; i < _size - pos; i++)
+    
+    for (int i = _size - 1; i >= pos; i--)
     {
-        new_data[i] = _data[i + pos];
-        counter += 1;
+        _data[i + n] = _data[i];
     }
-    for (int i = 0; i < n; i++)
+    for (int i = pos; i < pos + n; i++)
     {
-        _data[i + pos] = c;
-    }
-    for (int i = 0; i < _size + n; i++)
-    {
-        _data[i + ((_size - counter) + n)] = new_data[i];
+        _data[i] = c;
     }
     _data[_size + n] = '\0';
     _size += n;
-    delete[] new_data;
     return *this;
 }
 
@@ -767,24 +730,23 @@ CString& CString::replace(size_t pos, size_t len, const char* s, size_t n) // Не
     }
     sublen -= n;
     this->reserve(sublen);
-    char* new_data;
-    new_data = new char[_capacity];
-    for (int i = pos + len; i < _size; i++)
+    for (int i = _size -1; i >= pos - 1; i--)
     {
-        new_data[i - pos - len] = _data[i];
+        if (i >= pos && i < pos + len)
+        {
+            continue;
+        }
+        else
+        {
+            _data[i - len + sublen] = _data[i];
+        }
     }
-    _size -= len;
-    for (int i = 0; i < _size + sublen; i++)
+    for (int i = 0; i < sublen; i++)
     {
         _data[i + pos] = s[i + n];
     }
-    for (int i = 0; i < _size + sublen; i++)
-    {
-        _data[i + pos + sublen] = new_data[i];
-    }
-    _size += sublen;
-    _data[_size] = '\0';
-    delete[] new_data;
+    _size -= len;
+    _data[_size + sublen] = '\0';
     return *this;
 }
 

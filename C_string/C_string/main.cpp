@@ -5,11 +5,10 @@ int main() {
     char test1[4] = { '4', '5', '6', '\0' };
     char test[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0' };
     CString str_1(test);
-    CString str_2(test1);
+    CString str_2(test);
     str_1.print();
     str_2.print();
-    size_t pos = str_1.find_first_not_of('1');
-    std::cout << pos << '\n';
+    str_1.replace(3, 5, test1, 1);
     str_1.print();
     str_2.print();
     str_2.push_back('*');
