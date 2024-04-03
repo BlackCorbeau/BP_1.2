@@ -721,7 +721,7 @@ CString& CString::replace(size_t pos, size_t len, const CString& str, size_t sub
     return *this;
 }
 
-CString& CString::replace(size_t pos, size_t len, const char* s, size_t n) // Не работает, утечка памяти после return 0
+CString& CString::replace(size_t pos, size_t len, const char* s, size_t n) 
 {
     int sublen = 0;
     while (s[sublen] != '\0')
@@ -730,7 +730,7 @@ CString& CString::replace(size_t pos, size_t len, const char* s, size_t n) // Не
     }
     sublen -= n;
     this->reserve(sublen);
-    for (int i = _size -1; i >= pos - 1; i--)
+    for (int i = _size -1; i >= pos; i--)
     {
         if (i >= pos && i < pos + len)
         {
