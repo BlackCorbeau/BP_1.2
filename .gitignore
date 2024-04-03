@@ -32,6 +32,8 @@
 *.app
 
 Date_time_project/
+CArchive/
+CFraction/
 x64/
 .vs/
 
