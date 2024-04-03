@@ -35,8 +35,8 @@ public:
     inline bool full() const noexcept;
 
     size_t size();
-    //size_t capacity();
-    //const T* data();
+    size_t capacity();
+    const T* data();
 
     //void swap(TArchive& archive);
 
@@ -178,6 +178,17 @@ template<typename T>
 size_t TArchive<T>::size()
 {
     return _size;
+}
+template<typename T>
+size_t TArchive<T>::capacity()
+{
+    return _capacity;
+}
+
+template<typename T>
+const T* TArchive<T>::data()
+{
+    return _data;
 }
 
 template <typename T>
