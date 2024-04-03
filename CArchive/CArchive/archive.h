@@ -11,6 +11,12 @@ namespace algorithms {
         val_1 = val_2;
         val_2 = tmp;
     }
+
+    template<typename T>
+    T max(T val_1, T val_2) {
+        if (val_1 > val_2) return val_1;
+        else return val_2;
+    }
 }
 
 template <typename T>
@@ -38,7 +44,7 @@ public:
     size_t capacity();
     const T* data();
 
-    //void swap(TArchive& archive);
+    void swap(TArchive& archive);
 
     //TArchive& assign(const TArchive& archive);
 
@@ -189,6 +195,15 @@ template<typename T>
 const T* TArchive<T>::data()
 {
     return _data;
+}
+
+template<typename T>
+void TArchive<T>::swap(TArchive& archive)
+{
+    for (int i = 0; i < algorithms::max(_size, archive._size); i++)
+    {
+        algorithms::swap(_data[i], archive._data[i]);
+    }
 }
 
 template <typename T>
