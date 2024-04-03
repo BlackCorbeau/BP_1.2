@@ -14,7 +14,7 @@ public:
     int get_denuminator();
 
     void print();
-    void Do_easier();
+    void simplify();
     Fraction operator=(const Fraction& fr);
 
     bool operator!=(const Fraction& fr);

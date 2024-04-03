@@ -3,15 +3,18 @@
 
 int main()
 {
-	Fraction fr(5, 4);
-	Fraction fr2(8, 20);
-	Fraction Fr3;
-	fr2.Do_easier();
+	Fraction fr(3, 4);
+	Fraction fr2(1, 2);
+	Fraction fr3;
+	bool i = fr >= fr2;
+	std::cout << i << '\n';
+	fr2.simplify();
+	fr2.print();
 	std::cout << fr << '\n';
 	std::cout << fr2 << '\n';
-	Fr3 = fr / fr2;
+	fr3 = fr / fr2;
 	fr /= fr2;
-	Fr3.print();
+	fr3.print();
 	fr.print();
 	return 0;
 }

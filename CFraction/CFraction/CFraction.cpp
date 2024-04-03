@@ -2,21 +2,37 @@
 #include <string>
 #include <iostream>
 
+int gcd(int a, int b) {
+	if (a == 0) { return b; }
+	else if (b == 0) { return a; }
+	else if (a >= b) { return gcd(a % b, b); }
+	else if (a <= b) { return gcd(a, b % a); }
+}
+
+void Fraction::simplify()
+{
+	int _gcd = gcd(_numerator, _denominator);
+	_denominator /= _gcd;
+	_numerator /= _gcd;
+}
 
 Fraction::Fraction()
 {
 	_numerator = 0;
-	_denominator = 0;
+	_denominator = 1;
+	this->simplify();
 }
 Fraction::Fraction(const Fraction& F1)
 {
 	_numerator = F1._numerator;
 	_denominator = F1._denominator;
+	this->simplify();
 }
 Fraction::Fraction(int numerator, int denumirator)
 {
 	_numerator = numerator;
 	_denominator = denumirator;
+	this->simplify();
 }
 //Fraction::Fraction(float num) //Дописать
 //{
@@ -51,21 +67,8 @@ int Fraction::get_denuminator()
 
 void Fraction::print()
 {
+	this->simplify();
 	std::cout << _numerator << '/' << _denominator << '\n';
-}
-void Fraction::Do_easier()
-{
-	int m = _denominator;
-	int n = _numerator;
-	int r = m % n;
-	while (r != 0)
-	{
-		m = n;
-		n = r;
-		r = m % n;
-	}
-	_denominator /= n;
-	_numerator /= n;
 }
 
 Fraction Fraction::operator=(const Fraction& fr)
@@ -112,7 +115,7 @@ Fraction Fraction::operator+(const Fraction& fr1)
 		Res._numerator = (Res._numerator * fr1._denominator) + (fr1._numerator * Res._denominator);
 		Res._denominator = Res._denominator * fr1._denominator;
 	}
-	Res.Do_easier();
+	Res.simplify();
 	return Res;
 }
 
@@ -127,7 +130,7 @@ void Fraction::operator+=(const Fraction& fr1)
 		_numerator = (_numerator * fr1._denominator) + (fr1._numerator * _denominator);
 		_denominator = _denominator * fr1._denominator;
 	}
-	this->Do_easier();
+	this->simplify();
 }
 
 Fraction Fraction::operator-(const Fraction& fr)
@@ -142,7 +145,7 @@ Fraction Fraction::operator-(const Fraction& fr)
 		Res._numerator = (Res._numerator * fr._denominator) - (fr._numerator * Res._denominator);
 		Res._denominator = Res._denominator * fr._denominator;
 	}
-	Res.Do_easier();
+	Res.simplify();
 	return Res;
 }
 
@@ -155,9 +158,9 @@ void Fraction::operator-=(const Fraction& fr1)
 	else
 	{
 		_numerator = (_numerator * fr1._denominator) - (fr1._numerator * _denominator);
-		_denominator = _denominator * fr1._denominator;
+		_denominator *= fr1._denominator;
 	}
-	this->Do_easier();
+	this->simplify();
 }
 
 Fraction Fraction::operator*(const Fraction& fr)
@@ -165,7 +168,7 @@ Fraction Fraction::operator*(const Fraction& fr)
 	Fraction Res(*this);
 	Res._denominator = Res._denominator * fr._denominator;
 	Res._numerator = Res._numerator * fr._numerator;
-	Res.Do_easier();
+	Res.simplify();
 	return Res;
 }
 
@@ -173,7 +176,7 @@ void Fraction::operator*=(const Fraction& fr)
 {
 	_denominator = _denominator * fr._denominator;
 	_numerator = _numerator * fr._numerator;
-	this->Do_easier();
+	this->simplify();
 }
 
 Fraction Fraction::operator/(const Fraction& fr)
@@ -181,7 +184,7 @@ Fraction Fraction::operator/(const Fraction& fr)
 	Fraction res(*this);
 	res._numerator = res._numerator * fr._denominator;
 	res._denominator = res._denominator * fr._numerator;
-	res.Do_easier();
+	res.simplify();
 	return res;
 }
 
@@ -189,5 +192,5 @@ void Fraction::operator/=(const Fraction& fr)
 {
 	_numerator = _numerator * fr._denominator;
 	_denominator = _denominator * fr._numerator;
-	this->Do_easier();
+	this->simplify();
 }
