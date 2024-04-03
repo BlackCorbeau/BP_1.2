@@ -22,10 +22,10 @@ class TArchive {
     size_t _deleted;           // количество "удалённых" позиций
 public:
     TArchive();
-    //TArchive(const TArchive& archive);
-    //TArchive(const T* arr, size_t n);
-    //TArchive(size_t n, T value);
-    //TArchive(const TArchive& archive, size_t pos, size_t n);
+    TArchive(const TArchive& archive);
+    TArchive(const T* arr, size_t n);
+    TArchive(size_t n, T value);
+    TArchive(const TArchive& archive, size_t pos, size_t len);
 
     ~TArchive();
 
@@ -34,10 +34,7 @@ public:
     inline bool empty() const noexcept;
     inline bool full() const noexcept;
 
-    size_t size()
-    {
-        return _size;
-    }
+    size_t size();
     //size_t capacity();
     //const T* data();
 
@@ -84,7 +81,85 @@ TArchive<T>::TArchive() {
 }
 
 template <typename T>
-TArchive<T>::~TArchive() {
+TArchive<T>::TArchive(const TArchive& archive)
+{
+    _capacity = archive._capacity;
+    _size = archive._size;              
+    _deleted = archive._deleted;
+    _states = new State[_capacity];
+    _data = new T[_capacity];
+    for (size_t i = 0; i < _capacity; i++) {
+        _states[i] = archive._states[i];
+    }
+    for (int i = 0; i < _size; i++)
+    {
+        _data[i] = archive._data[i];
+    }
+}
+
+template <typename T>
+TArchive<T>::TArchive(const T* arr, size_t n)
+{
+    _size = n;
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    _states = new State[_capacity];
+    _data = new T[_capacity];
+    _deleted = 0;
+    for (size_t i = 0; i < _capacity; i++) {
+        _states[i] = State::empty;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        _data[i] = arr[i];
+    }
+    for (size_t i = 0; i < n; i++) {
+        _states[i] = State::busy;
+    }
+}
+
+template <typename T>
+TArchive<T>::TArchive(size_t n, T value)
+{
+    _size = n;
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    _states = new State[_capacity];
+    _data = new T[_capacity];
+    _deleted = 0;
+    for (size_t i = 0; i < _capacity; i++) {
+        _states[i] = State::empty;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        _data[i] = value;
+    }
+    for (size_t i = 0; i < n; i++) {
+        _states[i] = State::busy;
+    }
+}
+
+template <typename T>
+TArchive<T>::TArchive(const TArchive& archive, size_t pos, size_t len)
+{
+    _size = len;
+    _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    _deleted = 0;
+    _states = new State[_capacity];
+    _data = new T[_capacity];
+    for (size_t i = 0; i < _capacity; i++) {
+        _states[i] = State::empty;
+    }
+    for (size_t i = 0; i < _size; i++) {
+        _states[i] = State::busy;
+    }
+    for (int i = 0; i < _size; i++)
+    {
+        _data[i] = archive._data[i + pos];
+    }
+}
+
+template <typename T>
+TArchive<T>::~TArchive() 
+{
     delete[] _data;
     _data = nullptr;
 }
@@ -97,6 +172,12 @@ inline bool TArchive<T>::empty() const noexcept {
 template <typename T>
 inline bool TArchive<T>::full() const noexcept {
     return _size == _capacity;
+}
+
+template<typename T>
+size_t TArchive<T>::size()
+{
+    return _size;
 }
 
 template <typename T>

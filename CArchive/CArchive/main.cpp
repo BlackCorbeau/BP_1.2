@@ -5,7 +5,9 @@
 enum Actions { EXIT, INSERT, FIND, REMOVE, CLEAN };
 
 int main() {
-    TArchive<int> archive;
+    int nums[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+    TArchive<int> archive1(nums, 5);
+    TArchive<int> archive(archive1, 1, 2);
     size_t n, pos;
     int* values = nullptr;
     int user;
