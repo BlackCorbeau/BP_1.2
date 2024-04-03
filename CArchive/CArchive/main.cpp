@@ -28,7 +28,29 @@ int main() {
             if (values != nullptr) { delete[] values; values = nullptr; }
             values = InputSystem::insert<int>(n, pos, mode);
             success = false;
-            if (mode == InputSystem::InsertMode::OneValue) {
+            if (mode == InputSystem::InsertMode::Front)
+            {
+                try {
+                    pos = 0;
+                    archive.insert(values[0], pos);
+                    success = true;
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
+            else if (mode == InputSystem::InsertMode::Back)
+            {
+                try {
+                    pos = archive.size();
+                    archive.insert(values[0], pos);
+                    success = true;
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
+            else if (mode == InputSystem::InsertMode::OneValue) {
                 try {
                     archive.insert(values[0], pos);
                     success = true;

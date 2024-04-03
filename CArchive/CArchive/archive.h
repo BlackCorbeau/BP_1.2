@@ -1,5 +1,6 @@
 #pragma once
 #define STEP_CAPACITY 15
+#include <iostream>
 
 enum State { empty, busy, deleted };
 
@@ -33,7 +34,10 @@ public:
     inline bool empty() const noexcept;
     inline bool full() const noexcept;
 
-    //size_t size();
+    size_t size()
+    {
+        return _size;
+    }
     //size_t capacity();
     //const T* data();
 
