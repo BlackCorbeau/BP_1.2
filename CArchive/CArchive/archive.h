@@ -46,11 +46,12 @@ public:
 
     void swap(TArchive& archive);
 
+    void clear();
+    void reserve(size_t n);
+    void resize(size_t n, T value);
+
     //TArchive& assign(const TArchive& archive);
 
-    //void clear();
-    //void resize(size_t n, T value);
-    //void reserve(size_t n);
 
     //void push_back(T value);             // вставка элемента (в конец)
     //void pop_back();                     // удаление элемента (из конца)
@@ -204,6 +205,56 @@ void TArchive<T>::swap(TArchive& archive)
     {
         algorithms::swap(_data[i], archive._data[i]);
     }
+}
+
+
+template<typename T>
+void TArchive<T>::clear()
+{
+    for (int i = 0; i < _capacity; i++)
+    {
+        _data[i] = NULL;
+        _states[i] = State::empty;
+    }
+}
+
+template<typename T>
+void TArchive<T>::reserve(size_t n)
+{
+    _capacity = ((_size + n) / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    T* new_data;
+    State* new_states;
+    new_data = new T[_capacity];
+    new_states = new State[_capacity];
+    for (int i = 0; i < _size; i++)
+    {
+        new_data[i] = _data[i];
+        new_states[i] = _states[i];
+    }
+    for (int i = _size; i < _capacity; i++)
+    {
+        new_states[i] = State::empty;
+    }
+    delete[] _data;
+    delete[] _states;
+    _data = new_data;
+    _states = new_states;
+}
+
+template<typename T>
+void TArchive<T>::resize(size_t n, T value)
+{
+    n -= 1;
+    this->reserve(n);
+    for (int i = _size - 1; i < _size + n; i++)
+    {
+        _data[i] = value;
+    }
+    for (int i = _size - 1; i < _size + n; i++)
+    {
+        _states[i] = State::busy;
+    }
+    _size += n;
 }
 
 template <typename T>

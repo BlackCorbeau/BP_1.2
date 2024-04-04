@@ -8,7 +8,7 @@ int main() {
     int nums[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
     TArchive<int> archive1(5, 1);
     TArchive<int> archive(archive1, 1, 5);
-    archive.swap(archive1);
+    archive.resize(15, 2);
     size_t n, pos;
     int* values = nullptr;
     int user;
