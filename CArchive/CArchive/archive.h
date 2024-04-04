@@ -50,7 +50,7 @@ public:
     void reserve(size_t n);
     void resize(size_t n, T value);
 
-    //TArchive& assign(const TArchive& archive);
+    TArchive& assign(const TArchive& archive);
 
 
     //void push_back(T value);             // вставка элемента (в конец)
@@ -255,6 +255,18 @@ void TArchive<T>::resize(size_t n, T value)
         _states[i] = State::busy;
     }
     _size += n;
+}
+
+template<typename T>
+TArchive<T>& TArchive<T>::assign(const TArchive& archive) // не отображаеться в консоли!!!
+{
+    this->reserve(archive._size);
+    for (int i = _size; i < _size + archive._size; i++)
+    {
+        _data[i] = archive._data[i];
+        _states[i] = State::busy;
+    }
+    return *this;
 }
 
 template <typename T>
