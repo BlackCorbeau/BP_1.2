@@ -8,6 +8,7 @@ int main() {
     int nums[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
     TArchive<int> archive1(nums, 8);
     TArchive<int> archive(5, 2);
+    archive.replace(2, 10);
     size_t n, pos;
     int* values = nullptr;
     DeleteSystem::DeleteMode delM;

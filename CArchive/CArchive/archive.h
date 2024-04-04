@@ -61,7 +61,7 @@ public:
     TArchive& insert(const T* arr, size_t n, size_t pos);
     TArchive& insert(T value, size_t pos);
 
-    //TArchive& replace(size_t pos, T new_value);
+    TArchive& replace(size_t pos, T new_value);
 
     TArchive& remove_by_index(size_t pos);
     //TArchive& erase(size_t pos, size_t n);
@@ -353,6 +353,13 @@ TArchive<T>& TArchive<T>::insert(const T* arr, size_t n, size_t pos)
         _data[i] = arr[j];
     }
     _size += n;
+    return *this;
+}
+
+template <typename T>
+TArchive<T>& TArchive<T>::replace(size_t pos, T new_value)
+{
+    _data[pos] = new_value;
     return *this;
 }
 
