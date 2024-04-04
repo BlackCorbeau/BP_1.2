@@ -261,11 +261,16 @@ template<typename T>
 TArchive<T>& TArchive<T>::assign(const TArchive& archive) // не отображаеться в консоли!!!
 {
     this->reserve(archive._size);
-    for (int i = _size; i < _size + archive._size; i++)
+    for (int i = 0; i < archive._size; i++)
     {
         _data[i] = archive._data[i];
         _states[i] = State::busy;
     }
+    for (int i = archive._size; i < _capacity; i++)
+    {
+        _states[i] = State::empty;
+    }
+    _size = archive._size;
     return *this;
 }
 
