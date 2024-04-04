@@ -8,7 +8,6 @@ int main() {
     int nums[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
     TArchive<int> archive1(nums, 8);
     TArchive<int> archive(5, 2);
-    archive.assign(archive1);
     size_t n, pos;
     int* values = nullptr;
     DeleteSystem::DeleteMode delM;
@@ -55,6 +54,15 @@ int main() {
             else if (mode == InputSystem::InsertMode::OneValue) {
                 try {
                     archive.insert(values[0], pos);
+                    success = true;
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
+            else if (mode == InputSystem::InsertMode::SeveralValues) {
+                try {
+                    archive.insert(values, n, pos);
                     success = true;
                 }
                 catch (std::exception err) {

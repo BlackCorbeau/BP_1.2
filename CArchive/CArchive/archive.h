@@ -58,7 +58,7 @@ public:
     void push_front(T value);            // вставка элемента (в начало)
     void pop_front();                    // удаление элемента (из начала)
 
-    //TArchive& insert(const T* arr, size_t n, size_t pos);
+    TArchive& insert(const T* arr, size_t n, size_t pos);
     TArchive& insert(T value, size_t pos);
 
     //TArchive& replace(size_t pos, T new_value);
@@ -261,7 +261,7 @@ void TArchive<T>::resize(size_t n, T value)
 }
 
 template<typename T>
-TArchive<T>& TArchive<T>::assign(const TArchive& archive) // не отображаеться в консоли!!!
+TArchive<T>& TArchive<T>::assign(const TArchive& archive) 
 {
     this->reserve(archive._size);
     for (int i = 0; i < archive._size; i++)
@@ -316,6 +316,7 @@ TArchive<T>& TArchive<T>::remove_by_index(size_t pos)
     _states[pos] = State::deleted;
     return *this;
 }
+
 template <typename T>
 TArchive<T>& TArchive<T>::insert(T value, size_t pos) {
     if (_size < pos) {
@@ -336,6 +337,22 @@ TArchive<T>& TArchive<T>::insert(T value, size_t pos) {
     _data[pos] = value;
     _states[pos] = State::busy;
     _size++;
+    return *this;
+}
+
+template <typename T>
+TArchive<T>& TArchive<T>::insert(const T* arr, size_t n, size_t pos)
+{
+    this->reserve(n);
+    for (int i = _size - 1; i >= pos; i--)
+    {
+        _data[i + n] = _data[i];
+    }
+    for (int i = pos, j = 0; i < n + pos; i++, j++)
+    {
+        _data[i] = arr[j];
+    }
+    _size += n;
     return *this;
 }
 
