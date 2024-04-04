@@ -64,10 +64,10 @@ public:
     TArchive& replace(size_t pos, T new_value);
 
     TArchive& remove_by_index(size_t pos);
-    //TArchive& erase(size_t pos, size_t n);
-    //TArchive& remove_all(T value);
-    //TArchive& remove_first(T value);
-    //TArchive& remove_last(T value);
+    TArchive& erase(size_t pos, size_t n);
+    TArchive& remove_all();
+    TArchive& remove_first(T value);
+    TArchive& remove_last(T value);
 
     //size_t* find_all(T value) const noexcept;
     //size_t find_first(T value);
@@ -372,6 +372,45 @@ void TArchive<T>::print() const noexcept {
     }
 }
 
+template <typename T>
+TArchive<T>& TArchive<T>::erase(size_t pos, size_t n)
+{
+    for (int i = pos; i < pos + n; i++)
+    {
+        _states[i] = State::deleted;
+    }
+    return *this;
+}
+
+template <typename T>
+TArchive<T>& TArchive<T>::remove_all() // ƒопилить, работает криво.
+{
+    for (int i = 0; i < _size; i++)
+    {
+        _states[i] = State::deleted;
+    }
+    return *this;
+}
+
+template <typename T>
+TArchive<T>& TArchive<T>::remove_first(T value)
+{
+    for (int i = 0; i < value; i++)
+    {
+        _states[i] = State::deleted;
+    }
+    return *this;
+}
+
+template <typename T>
+TArchive<T>& TArchive<T>::remove_last(T value)
+{
+    for (int i = _size-1, j = 0; j < value; i--, j++)
+    {
+        _states[i] = State::deleted;
+    }
+    return *this;
+}
 /*
 // пример реализации с возвратом массива найденных позиций
 template <typename T>

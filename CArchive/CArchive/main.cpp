@@ -8,7 +8,6 @@ int main() {
     int nums[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
     TArchive<int> archive1(nums, 8);
     TArchive<int> archive(5, 2);
-    archive.replace(2, 10);
     size_t n, pos;
     int* values = nullptr;
     DeleteSystem::DeleteMode delM;
@@ -96,6 +95,17 @@ int main() {
                     std::cerr << err.what() << std::endl;
                 }
             }
+            else if (delM == DeleteSystem::DeleteMode::MuchMoreFront)
+            {
+                try {
+                    archive.remove_first(n);
+                    success = true;
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
+
             else if (delM == DeleteSystem::DeleteMode::Back)
             {
                 try {
@@ -106,9 +116,28 @@ int main() {
                     std::cerr << err.what() << std::endl;
                 }
             }
+            else if (delM == DeleteSystem::DeleteMode::MuchMoreBack)
+            {
+                try {
+                    archive.remove_last(n);
+                    success = true;
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
             else if (delM == DeleteSystem::DeleteMode::ByIndex) {
                 try {
                     archive.remove_by_index(pos);
+                    success = true;
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
+            else if (delM == DeleteSystem::DeleteMode::All) {
+                try {
+                    archive.remove_all();
                     success = true;
                 }
                 catch (std::exception err) {

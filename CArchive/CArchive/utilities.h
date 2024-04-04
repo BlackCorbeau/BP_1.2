@@ -54,7 +54,7 @@ namespace InputSystem {
 }
 
 namespace DeleteSystem {
-    enum DeleteMode { Back, Front, ByIndex };
+    enum DeleteMode { Back, MuchMoreBack, Front, MuchMoreFront, ByIndex, All };
 
     void delite(size_t& n, size_t& pos, DeleteSystem::DeleteMode& mode) noexcept {
         mode = Back;
@@ -63,11 +63,31 @@ namespace DeleteSystem {
         std::cout << "1 - to the back,\n";
         std::cout << "2 - to the front,\n";
         std::cout << "3 - at given position.\n";
+        std::cout << "4 - all\n";
         std::cout << "Your choose: ";
         std::cin >> user;
-        if (user == 1) { mode = Back; }
-        if (user == 2) { mode = Front; }
-        if (user == 3) { std::cout << "Choose position for delete: "; std::cin >> pos; mode = ByIndex; }
+        if (user == 1) {
+            std::cout << "How many values need to delete:\n";
+            std::cout << "1 - one value,\n";
+            std::cout << "2 - several values.\n";
+            std::cout << "Your choose: ";
+            std::cin >> user;
+            if (user == 1) { mode = Back; return; }
+            if (user == 2) { mode = MuchMoreBack; std::cout << "Input count of elements, wich will be delete: "; std::cin >> n; return; }
+        }
+
+        if (user == 2) {
+            std::cout << "How many values need to delete:\n";
+            std::cout << "1 - one value,\n";
+            std::cout << "2 - several values.\n";
+            std::cout << "Your choose: ";
+            std::cin >> user;
+            if (user == 1) { mode = Front; return; }
+            if (user == 2) { mode = MuchMoreFront; std::cout << "Input count of elements, wich will be delete: "; std::cin >> n; return; }
+        }
+        if (user == 3) { std::cout << "Choose position for delete: "; std::cin >> pos; mode = ByIndex; return; }
+        if (user == 4) { mode = All; return; }
+        
     }
 }
 
