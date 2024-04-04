@@ -53,21 +53,21 @@ public:
     TArchive& assign(const TArchive& archive);
 
 
-    //void push_back(T value);             // вставка элемента (в конец)
-    //void pop_back();                     // удаление элемента (из конца)
-    //void push_front(T value);            // вставка элемента (в начало)
-    //void pop_front();                    // удаление элемента (из начала)
+    void push_back(T value);             // вставка элемента (в конец)
+    void pop_back();                     // удаление элемента (из конца)
+    void push_front(T value);            // вставка элемента (в начало)
+    void pop_front();                    // удаление элемента (из начала)
 
     //TArchive& insert(const T* arr, size_t n, size_t pos);
     TArchive& insert(T value, size_t pos);
 
     //TArchive& replace(size_t pos, T new_value);
 
+    TArchive& remove_by_index(size_t pos);
     //TArchive& erase(size_t pos, size_t n);
     //TArchive& remove_all(T value);
     //TArchive& remove_first(T value);
     //TArchive& remove_last(T value);
-    //TArchive& remove_by_index(size_t pos);
 
     //size_t* find_all(T value) const noexcept;
     //size_t find_first(T value);
@@ -211,10 +211,13 @@ void TArchive<T>::swap(TArchive& archive)
 template<typename T>
 void TArchive<T>::clear()
 {
-    for (int i = 0; i < _capacity; i++)
-    {
-        _data[i] = NULL;
-        _states[i] = State::empty;
+    int j = 0;
+    for (int i = 0; i < _capacity; i++) {
+        if (_states[i] != State::deleted) {
+            _data[j] = _data[i];
+            _states[j] = _states[i];
+            j++;
+        }
     }
 }
 
@@ -274,6 +277,45 @@ TArchive<T>& TArchive<T>::assign(const TArchive& archive) // не отображаеться в 
     return *this;
 }
 
+template<typename T>
+void TArchive<T>::push_back(T value)
+{
+    this->reserve(1);
+    _data[_size] = value;
+    _size += 1;
+}
+
+template<typename T>
+void TArchive<T>::pop_back()
+{
+    _states[_size - 1] = State::deleted;
+}
+
+template<typename T>
+void TArchive<T>::push_front(T value)
+{
+    this->reserve(1);
+    for (int i = _size; i >= 0; i--)
+    {
+        _data[i + 1] = _data[i];
+    }
+    _data[0] = value;
+    _size += 1;
+}
+
+template<typename T>
+void TArchive<T>::pop_front()
+{
+    _states[0] = State::deleted;
+}
+
+
+template<typename T>
+TArchive<T>& TArchive<T>::remove_by_index(size_t pos)
+{
+    _states[pos] = State::deleted;
+    return *this;
+}
 template <typename T>
 TArchive<T>& TArchive<T>::insert(T value, size_t pos) {
     if (_size < pos) {

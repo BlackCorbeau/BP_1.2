@@ -53,6 +53,24 @@ namespace InputSystem {
     }
 }
 
+namespace DeleteSystem {
+    enum DeleteMode { Back, Front, ByIndex };
+
+    void delite(size_t& n, size_t& pos, DeleteSystem::DeleteMode& mode) noexcept {
+        mode = Back;
+        int user;
+        std::cout << "Choose delete mode:\n";
+        std::cout << "1 - to the back,\n";
+        std::cout << "2 - to the front,\n";
+        std::cout << "3 - at given position.\n";
+        std::cout << "Your choose: ";
+        std::cin >> user;
+        if (user == 1) { mode = Back; }
+        if (user == 2) { mode = Front; }
+        if (user == 3) { std::cout << "Choose position for delete: "; std::cin >> pos; mode = ByIndex; }
+    }
+}
+
 namespace OutputSystem {
     static void setCursor(int column, int line) {
         COORD coord;

@@ -11,6 +11,7 @@ int main() {
     archive.assign(archive1);
     size_t n, pos;
     int* values = nullptr;
+    DeleteSystem::DeleteMode delM;
     int user;
 
     std::exception err;
@@ -34,8 +35,7 @@ int main() {
             if (mode == InputSystem::InsertMode::Front)
             {
                 try {
-                    pos = 0;
-                    archive.insert(values[0], pos);
+                    archive.push_front(values[0]);
                     success = true;
                 }
                 catch (std::exception err) {
@@ -45,8 +45,7 @@ int main() {
             else if (mode == InputSystem::InsertMode::Back)
             {
                 try {
-                    pos = archive.size();
-                    archive.insert(values[0], pos);
+                    archive.push_back(values[0]);
                     success = true;
                 }
                 catch (std::exception err) {
@@ -75,8 +74,38 @@ int main() {
             system("pause");
             break;
         case Actions::REMOVE:
-            std::cout << "TBD" << std::endl;
-            system("pause");
+            if (values != nullptr) { delete[] values; values = nullptr; }
+            DeleteSystem::delite(n, pos, delM);
+            success = false;
+            if (delM == DeleteSystem::DeleteMode::Front)
+            {
+                try {
+                    archive.pop_front();
+                    success = true;
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
+            else if (delM == DeleteSystem::DeleteMode::Back)
+            {
+                try {
+                    archive.pop_back();
+                    success = true;
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
+            else if (delM == DeleteSystem::DeleteMode::ByIndex) {
+                try {
+                    archive.remove_by_index(pos);
+                    success = true;
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
             break;
         case Actions::CLEAN:
             std::cout << "TBD" << std::endl;
