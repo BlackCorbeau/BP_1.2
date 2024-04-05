@@ -86,7 +86,7 @@ namespace DeleteSystem {
             if (user == 2) { mode = MuchMoreFront; std::cout << "Input count of elements, wich will be delete: "; std::cin >> n; return; }
         }
         if (user == 3) { std::cout << "Choose position for delete: "; std::cin >> pos; mode = ByIndex; return; }
-        if (user == 4) { mode = All; return; }
+        if (user == 4) { mode = All; std::cout << "Choose value for delete: "; std::cin >> n; return; }
         
     }
 }

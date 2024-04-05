@@ -49,6 +49,7 @@ public:
     void clear();
     void reserve(size_t n);
     void resize(size_t n, T value);
+    void repack();
 
     TArchive& assign(const TArchive& archive);
 
@@ -65,7 +66,7 @@ public:
 
     TArchive& remove_by_index(size_t pos);
     TArchive& erase(size_t pos, size_t n);
-    TArchive& remove_all();
+    TArchive& remove_all(T value);
     TArchive& remove_first(T value);
     TArchive& remove_last(T value);
 
@@ -211,14 +212,10 @@ void TArchive<T>::swap(TArchive& archive)
 template<typename T>
 void TArchive<T>::clear() // ѕодумать как доделать (после работы видно мусор)
 {
-    int j = 0;
-    for (int i = 0; i < _capacity; i++) {
-        if (_states[i] != State::deleted) {
-            _data[j] = _data[i];
-            _states[j] = _states[i];
-            j++;
-        }
-    }
+    delete[] _data;
+    delete[] _states;
+    _size = 0;
+    _capacity = STEP_CAPACITY;
 }
 
 template<typename T>
@@ -266,6 +263,19 @@ void TArchive<T>::resize(size_t n, T value)
         _states[i] = State::busy;
     }
     _size += n;
+}
+
+template<typename T>
+void TArchive<T>::repack() // подумать или спросить)
+{
+    int j = 0;
+    for (int i = 0; i < _capacity; i++) {
+        if (_states[i] != State::deleted) {
+            _data[j] = _data[i];
+            _states[j] = _states[i];
+            j++;
+        }
+    }
 }
 
 template<typename T>
@@ -387,11 +397,14 @@ TArchive<T>& TArchive<T>::erase(size_t pos, size_t n)
 }
 
 template <typename T>
-TArchive<T>& TArchive<T>::remove_all() // ƒопилить, работает криво.
+TArchive<T>& TArchive<T>::remove_all(T value) 
 {
     for (int i = 0; i < _size; i++)
     {
-        _states[i] = State::deleted;
+        if (_data[i] == value)
+        {
+            _states[i] = State::deleted;
+        }
     }
     return *this;
 }

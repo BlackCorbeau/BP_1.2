@@ -182,7 +182,7 @@ int main() {
             }
             else if (delM == DeleteSystem::DeleteMode::All) {
                 try {
-                    archive.remove_all();
+                    archive.remove_all(n);
                     success = true;
                 }
                 catch (std::exception err) {
