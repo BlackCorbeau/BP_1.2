@@ -5,9 +5,10 @@
 enum Actions { EXIT, INSERT, FIND, REMOVE, CLEAN };
 
 int main() {
-    int nums[10] = { 1, 2, 3, 4, 3, 6, 7, 3, 9, 0 };
+    int nums[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
     TArchive<int> archive1(nums, 8);
-    TArchive<int> archive(5, 2);
+    TArchive<int> archive(8, 2);
+    archive.insert(nums, 8, 1);
     size_t n, pos;
     size_t count;
     size_t* poses;

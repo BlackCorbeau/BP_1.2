@@ -224,7 +224,15 @@ void TArchive<T>::clear() // Подумать как доделать (после работы видно мусор)
 template<typename T>
 void TArchive<T>::reserve(size_t n)
 {
-    _capacity = ((_size + n) / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    if (_capacity == -1)
+    {
+        std::cout << "Переполнение, добавление большего количества элементов в этот архив невозможно, пожалуйста создайте новый архив или удалите часть элементов." << '\n';
+        return;
+    }
+    else
+    {
+        _capacity = ((_size + n) / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
+    }
     T* new_data;
     State* new_states;
     new_data = new T[_capacity];
@@ -323,14 +331,10 @@ TArchive<T>& TArchive<T>::insert(T value, size_t pos) {
         throw std::logic_error("Error in function \
 \"TArchive<T>& insert(T value, size_t pos)\": wrong position value.");
     }
-    /*
+    
     // действия при переполнении
-    if (this->full()) {
-        this->reserve(size_t n);
-        // + внутри reserve() исключение, если достигнем масимально
-        // возможного значения _capacity
-    }
-    */
+    this->reserve(1);
+    
     for (size_t i = _size; i > pos; i--) {
         _data[i] = _data[i - 1];
     }
@@ -341,7 +345,7 @@ TArchive<T>& TArchive<T>::insert(T value, size_t pos) {
 }
 
 template <typename T>
-TArchive<T>& TArchive<T>::insert(const T* arr, size_t n, size_t pos)
+TArchive<T>& TArchive<T>::insert(const T* arr, size_t n, size_t pos) // не работает при pos = 0
 {
     this->reserve(n);
     for (int i = _size - 1; i >= pos; i--)
