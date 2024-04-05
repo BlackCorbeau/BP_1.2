@@ -91,6 +91,25 @@ namespace DeleteSystem {
     }
 }
 
+namespace FindSystem {
+    enum FindMode { All, First, Last };
+
+    void Find(size_t& n, size_t& pos, FindSystem::FindMode& mode) noexcept {
+        mode = First;
+        int user;
+        std::cout << "Choose mode for find:\n";
+        std::cout << "1 - first,\n";
+        std::cout << "2 - last,\n";
+        std::cout << "3 - all.\n";
+        std::cout << "Your choose: ";
+        std::cin >> user;
+        if (user == 1) { mode = First; std::cout << "Write value wich you want to find: "; std::cin >> n; return; }
+        if (user == 2) { mode = Last; std::cout << "Write value wich you want to find: "; std::cin >> n; return; }
+        if (user == 3) { mode = All; std::cout << "Write value wich you want to find: "; std::cin >> n; return; }
+
+    }
+}
+
 namespace OutputSystem {
     static void setCursor(int column, int line) {
         COORD coord;

@@ -69,7 +69,7 @@ public:
     TArchive& remove_first(T value);
     TArchive& remove_last(T value);
 
-    size_t* find_all(T value) const noexcept;
+    size_t* find_all(T value, size_t& count) const noexcept;
     size_t find_first(T value);
     size_t find_last(T value);
 private:
@@ -413,25 +413,26 @@ TArchive<T>& TArchive<T>::remove_last(T value)
 }
 
 template <typename T>
-size_t* TArchive<T>::find_all(T value) const noexcept
+size_t* TArchive<T>::find_all(T value, size_t& count) const noexcept
 {
     size_t* find_values;
-    size_t count = 0;
+    size_t _count = 0;
     for (int i = 0; i < _size; i++)
     {
         if (_data[i] == value)
         {
-            count++;
+            _count++;
         }
     }
-    find_values = new size_t[count];
-    count = 0;
+    find_values = new size_t[_count];
+    count = _count;
+    _count = 0;
     for (int i = 0; i < _size; i++)
     {
         if (_data[i] == value)
         {
-            find_values[count] = i;
-            count++;
+            find_values[_count] = i;
+            _count++;
         }
     }
     return find_values;

@@ -8,10 +8,12 @@ int main() {
     int nums[10] = { 1, 2, 3, 4, 3, 6, 7, 3, 9, 0 };
     TArchive<int> archive1(nums, 8);
     TArchive<int> archive(5, 2);
-    size_t f_f = archive1.find_last(3);
     size_t n, pos;
+    size_t count;
+    size_t* poses;
     int* values = nullptr;
     DeleteSystem::DeleteMode delM;
+    FindSystem::FindMode FindM;
     int user;
 
     std::exception err;
@@ -79,7 +81,48 @@ int main() {
             system("pause");
             break;
         case Actions::FIND:
-            std::cout << "TBD" << std::endl;
+            FindSystem::Find(n, pos, FindM);
+            success = false;
+            if (FindM == FindSystem::FindMode::First)
+            {
+                try {
+                    pos = archive.find_first(n);
+                    success = true;
+                    std::cout << pos << '\n';
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
+            else if (FindM == FindSystem::FindMode::Last)
+            {
+                try {
+                    pos = archive.find_last(n);
+                    success = true;
+                    std::cout << pos << '\n';
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
+            else if (FindM == FindSystem::FindMode::All)
+            {
+                try {
+                    poses = archive.find_all(n, count);
+                    success = true;
+                    for (int i = 0; i < count; i++)
+                    {
+                        std::cout << poses[i] << " ";
+                    }
+                    std::cout << '\n';
+                }
+                catch (std::exception err) {
+                    std::cerr << err.what() << std::endl;
+                }
+            }
+            else {
+                std::cout << "TBD" << std::endl;
+            }
             system("pause");
             break;
         case Actions::REMOVE:
