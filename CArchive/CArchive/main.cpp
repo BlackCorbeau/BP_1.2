@@ -191,7 +191,7 @@ int main() {
             }
             break;
         case Actions::CLEAN:
-            archive.clear();
+            archive.repack();
             break;
         }
     }

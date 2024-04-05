@@ -269,13 +269,14 @@ template<typename T>
 void TArchive<T>::repack() // подумать или спросить)
 {
     int j = 0;
-    for (int i = 0; i < _capacity; i++) {
+    for (int i = 0; i < _size; i++) {
         if (_states[i] != State::deleted) {
             _data[j] = _data[i];
             _states[j] = _states[i];
             j++;
         }
     }
+    _size = j;
 }
 
 template<typename T>
