@@ -69,9 +69,9 @@ public:
     TArchive& remove_first(T value);
     TArchive& remove_last(T value);
 
-    //size_t* find_all(T value) const noexcept;
-    //size_t find_first(T value);
-    //size_t find_last(T value);
+    size_t* find_all(T value) const noexcept;
+    size_t find_first(T value);
+    size_t find_last(T value);
 private:
     //size_t count_value(T value);
 };
@@ -209,7 +209,7 @@ void TArchive<T>::swap(TArchive& archive)
 
 
 template<typename T>
-void TArchive<T>::clear()
+void TArchive<T>::clear() // Подумать как доделать (после работы видно мусор)
 {
     int j = 0;
     for (int i = 0; i < _capacity; i++) {
@@ -411,6 +411,58 @@ TArchive<T>& TArchive<T>::remove_last(T value)
     }
     return *this;
 }
+
+template <typename T>
+size_t* TArchive<T>::find_all(T value) const noexcept
+{
+    size_t* find_values;
+    size_t count = 0;
+    for (int i = 0; i < _size; i++)
+    {
+        if (_data[i] == value)
+        {
+            count++;
+        }
+    }
+    find_values = new size_t[count];
+    count = 0;
+    for (int i = 0; i < _size; i++)
+    {
+        if (_data[i] == value)
+        {
+            find_values[count] = i;
+            count++;
+        }
+    }
+    return find_values;
+}
+
+template <typename T>
+size_t TArchive<T>::find_first(T value)
+{
+    for (int i = 0; i < _size; i++)
+    {
+        if (_data[i] == value)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+template <typename T>
+size_t TArchive<T>::find_last(T value)
+{
+    for (int i = _size; i >= 0; i--)
+    {
+        if (_data[i] == value)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
 /*
 // пример реализации с возвратом массива найденных позиций
 template <typename T>

@@ -5,9 +5,10 @@
 enum Actions { EXIT, INSERT, FIND, REMOVE, CLEAN };
 
 int main() {
-    int nums[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+    int nums[10] = { 1, 2, 3, 4, 3, 6, 7, 3, 9, 0 };
     TArchive<int> archive1(nums, 8);
     TArchive<int> archive(5, 2);
+    size_t f_f = archive1.find_last(3);
     size_t n, pos;
     int* values = nullptr;
     DeleteSystem::DeleteMode delM;
@@ -146,7 +147,7 @@ int main() {
             }
             break;
         case Actions::CLEAN:
-            std::cout << "TBD" << std::endl;
+            archive.clear();
             break;
         }
     }
