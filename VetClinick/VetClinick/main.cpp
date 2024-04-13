@@ -1,7 +1,12 @@
 #include <iostream>
+#include <class.h>
+#include <CDate.h>
+#include <functions.h>
+#include <string.h>
+#include <archive.h>
 
 int main()
 {
-	std::cout << "Hello World";
-	return 0;
+	TArchive<int> atchive();
+	CTime time();
 }
