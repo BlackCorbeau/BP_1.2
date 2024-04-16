@@ -119,4 +119,15 @@ public:
     size_t find_first_not_of(const char* s, size_t pos = 0) const;
     size_t find_first_not_of(const char* s, size_t pos, size_t n) const;
     size_t find_first_not_of(char c, size_t pos = 0) const;
+
+    friend std::istream& operator>>(std::istream& input, CString& obj) {
+        if (obj._data == nullptr) {
+            obj._data = new char[2*STEP_CAPACITY];
+        }
+
+        for (int i = 0; i < obj._capacity; ++i) {
+            input >> obj._data[i];
+        }
+        return input;
+    }
 };

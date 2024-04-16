@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{c25dce1e-12bc-462f-ba95-7b2ffce5ca1a}</ProjectGuid>
-    <RootNamespace>VetClinick</RootNamespace>
+    <ProjectGuid>{acebd3c5-bd6c-4a8a-9921-4243cfa10784}</ProjectGuid>
+    <RootNamespace>VetClinicModels</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -104,13 +104,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\VetClinicModels;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\Experience;C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\Archivelib;C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\StringLib;C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\TimeLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\VetClinicModels</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\Archivelib;C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\StringLib;C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\TimeLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\Experience;C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\Archivelib;C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\StringLib;C:\Users\woron\OneDrive\Документы\Code\BP_1.2\VetClinick\TimeLib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -129,11 +132,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="Models.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VetClinicModels\VetClinicModels.vcxproj">
-      <Project>{acebd3c5-bd6c-4a8a-9921-4243cfa10784}</Project>
+    <ClCompile Include="ModelFunctions.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Archivelib\Archivelib.vcxproj">
+      <Project>{7095990b-79f2-4830-a54d-61c7886f4e27}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Experience\Experience.vcxproj">
+      <Project>{4f48aff1-32a2-4063-a199-9ccaed8f2e48}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\StringLib\StringLib.vcxproj">
+      <Project>{7a9eb570-b178-42ad-9816-5cdec0bd31aa}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeLib\TimeLib.vcxproj">
+      <Project>{112fe602-9524-4f7b-bc42-8f91088d67fa}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
