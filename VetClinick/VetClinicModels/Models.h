@@ -6,7 +6,32 @@
 #include <string.h>
 #include <archive.h>
 #include <CExperience.h>
+#include <vector>
 
+
+struct Clients
+{
+	TArchive<int> user_id;
+	int count = user_id.size();
+};
+
+struct Doktors
+{
+	TArchive<int> Doktors_ID;
+	int count = Doktors_ID.size();
+};
+
+struct Pets
+{
+	TArchive<int> Pets_id;
+	int count = Pets_id.size();
+};
+
+struct Receptions
+{
+	TArchive<int> Receptions_id;
+	int count = Receptions_id.size();
+};
 class human
 {
 	CString name;
@@ -32,22 +57,23 @@ class Ilness
 	CString syptomes;
 };
 
-class Doktor : human
+class Doktor : human //Doktors.txt
 {
 	int id;
 	CString password;
 	CString spetialization;
-	TArchive<CTime[4]> WorkingDays;
+	TArchive<CTime[4]> T;
 	CExperience exp;
 	CString university;
-	TArchive<CString> documents[3];
 	int access_level = 1;
 public:
 	Doktor();
-	void Registrate_Client();
 	void Registrate_Pet();
 	void Create_Reception();
 	void Close_Reception();
+
+	void writeToFile(const std::string& filename);
+	void readFromFile(const std::string& filename);
 };
 
 class Client : human
@@ -61,8 +87,22 @@ public:
 	void delet_sign_up();
 };
 
+class Admin : human
+{
+	int id;
+	int password;
+
+public:
+	void Add_Doktor();
+	void Check_log();
+	void Check_acsess_level();
+	void Find_in_file();
+	void download_strukts();
+};
+
 class Reception
 {
+	int id;
 	enum State {FREE, OCCUPED, CLOSED};
 	int Client_id;
 	int doctor_id; 
@@ -111,3 +151,5 @@ class Reptile : Pet
 	int type_id = 005;
 	int ilness_id;
 };
+
+bool remove_line(const char* filename, size_t index);

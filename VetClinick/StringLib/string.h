@@ -130,4 +130,15 @@ public:
         }
         return input;
     }
+
+    friend std::ostream& operator<<(std::ostream& output, CString& obj) {
+        if (obj._data == nullptr) {
+            obj._data = new char[2 * STEP_CAPACITY];
+        }
+
+        for (int i = 0; i < obj._capacity; ++i) {
+            output << obj._data[i];
+        }
+        return output;
+    }
 };
