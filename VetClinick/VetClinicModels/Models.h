@@ -69,11 +69,8 @@ class Doktor : human //Doktors.txt
 public:
 	Doktor();
 	void Registrate_Pet();
-	void Create_Reception();
-	void Close_Reception();
-
-	void writeToFile(const std::string& filename);
-	void readFromFile(const std::string& filename);
+	void Create_Reception(CTime start_time, CTime Finish_time);
+	void Close_Reception(int Reception_id);
 };
 
 class Client : human
@@ -83,21 +80,8 @@ class Client : human
 	TArchive<int> Pets_id;
 	int access_level = 0;
 public:
-	void Sign_up_reception();
-	void delet_sign_up();
-};
-
-class Admin : human
-{
-	int id;
-	int password;
-
-public:
-	void Add_Doktor();
-	void Check_log();
-	void Check_acsess_level();
-	void Find_in_file();
-	void download_strukts();
+	void Sign_up_reception(int Reception_id);
+	void Cancel_sign_up(int Reception_id);
 };
 
 class Reception
