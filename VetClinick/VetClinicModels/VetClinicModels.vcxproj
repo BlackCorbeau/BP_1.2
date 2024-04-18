@@ -135,9 +135,6 @@
     <ClInclude Include="Models.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ModelFunctions.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Archivelib\Archivelib.vcxproj">
       <Project>{7095990b-79f2-4830-a54d-61c7886f4e27}</Project>
     </ProjectReference>
