@@ -416,15 +416,15 @@ void CString::push_back(char c)
 
 void CString::update(const size_t __size)
 {
-    _size = __size;
+    _size = __size; // Потенциальная ошибка
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     char* new_data;
     new_data = new char[_capacity];
     for (int i = 0; i < _size; i++)
     {
-        new_data[i] = _data[i];
+        new_data[i] = _data[i]; // выход за границу
     }
-    delete _data;
+    delete[] _data;
     _data = new char[_capacity];
     for (int i = 0; i < _size; i++)
     {
