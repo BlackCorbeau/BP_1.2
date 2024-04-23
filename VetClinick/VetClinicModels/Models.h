@@ -1,11 +1,11 @@
 #pragma once
 #include <iostream>
-#include <class.h>
-#include <CDate.h>
-#include <functions.h>
-#include <string.h>
-#include <archive.h>
-#include <CExperience.h>
+#include "..\TimeLib\class.h"
+#include "..\TimeLib\CDate.h"
+#include "..\TimeLib\functions.h"
+#include "..\StringLib\string.h"
+#include "..\Archivelib\archive.h"
+#include "..\Experience\CExperience.h"
 #include <vector>
 
 
