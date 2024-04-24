@@ -31,15 +31,15 @@
 	{
 		hour = _hours;
 	}
-	int CTime::get_seconds()
+	int CTime::get_seconds() const
 	{
 		return second;
 	}
-	int CTime::get_minutes()
+	int CTime::get_minutes() const
 	{
 		return minute;
 	}
-	int CTime::get_hours()
+	int CTime::get_hours() const
 	{
 		return hour;
 	}

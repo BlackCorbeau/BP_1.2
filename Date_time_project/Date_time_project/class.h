@@ -13,9 +13,9 @@ public:
 	void initialize_seconds(int _second);
 	void initialize_minutes(int _minutes);
 	void initialize_hours(int _hours);
-	int get_seconds();
-	int get_minutes();
-	int get_hours();
+	int get_seconds() const;
+	int get_minutes() const;
+	int get_hours() const;
 	void print_parametrs();
 };
 

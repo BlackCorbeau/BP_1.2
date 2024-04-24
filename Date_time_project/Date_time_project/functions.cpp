@@ -116,7 +116,7 @@ Status add_seconds(CTime& time, CDate& date, int seconds) //Работает
 // 78:11:19 +4 hours -> ERROR
 
 // 1 - time1 > time2, 0 - time1 == time2, -1 time1 < time2
-int compare( CTime& time1, CTime& time2) // Работает
+int compare(const CTime& time1, const CTime& time2) // Работает
 {
 	int hour1 = time1.get_hours();
 	int hour2 = time2.get_hours();
@@ -162,7 +162,7 @@ int compare( CTime& time1, CTime& time2) // Работает
 }
 
 // time1 = time2
-Status assign(CTime& time1, CTime time2) { //Работает
+Status assign(CTime& time1, const CTime& time2) { //Работает
 	Status state = SUCCESS;
 	int hours1 = time1.get_hours();
 	int hours2 = time2.get_hours();

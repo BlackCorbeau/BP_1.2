@@ -26,15 +26,15 @@ void CDate::initialize_year(int _year)
 {
 	year = _year;
 }
-int CDate::get_day()
+int CDate::get_day() const
 {
 	return day;
 }
-int CDate::get_month()
+int CDate::get_month() const
 {
 	return month;
 }
-int CDate::get_year()
+int CDate::get_year() const
 {
 	return year;
 }

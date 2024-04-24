@@ -13,8 +13,8 @@ public:
 	void initialize_day(int _day);
 	void initialize_month(int _month);
 	void initialize_year(int _year);
-	int get_day();
-	int get_month();
-	int get_year();
+	int get_day() const;
+	int get_month() const;
+	int get_year() const;
 	void print_parametrs();
 };
