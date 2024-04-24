@@ -176,10 +176,8 @@ CString CString::substr(size_t pos, size_t len) const
         new_data[i] = _data[i + pos];
     }
     new_data[len] = '\0';
-    CString REP(new_data);// pass new_size to constructor
-    delete[] new_data;
-    new_data = nullptr;
-    return REP;
+    CString REP(new_data, new_size); // pass new_data and new_size to constructor
+    return REP; // let REP manage the memory
 }
 
 CString& CString::assign(const CString& str)
