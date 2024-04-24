@@ -42,19 +42,14 @@ CString::CString(const char* c_str) //добавить проверку на переполненность!!!
 
 CString::CString(const char* c_str, size_t n) //добавить проверку на переполненность!!!
 {
-    _size = 0;
-    while (c_str[_size] != '\0')
-    {
-        _size++;
-    }
+    _size = n;
     _capacity = (_size / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
     _data = new char[_capacity];
-    for (int i = n; i < _size; i++)
+    for (int i = 0; i < _size; i++)
     {
-        _data[i-n] = c_str[i];
+        _data[i] = c_str[i];
     }
-    _data[_size-n] = '\0';
-    _size -= n;
+    _data[_size] = '\0';
 }
 CString::CString(size_t n, char c) //добавить проверку на переполненность!!!
 {
@@ -167,21 +162,25 @@ void CString::swap(CString& str)
 //    //???
 //}
 
-//CString CString::substr(size_t pos, size_t len) const //Дописать !!!_CrtIsValidHeapPointer(block)
-//{
-//    size_t new_capacity = (len / STEP_CAPACITY) * STEP_CAPACITY + STEP_CAPACITY;
-//    char* new_data;
-//    new_data = new char[new_capacity];
-//    for (int i = 0; i < len; i++)
-//    {
-//        new_data[i] = _data[i + pos];
-//    }
-//    new_data[len] = '\0';
-//    CString REP(new_data);
-//    delete[] new_data;
-//    new_data = nullptr;
-//    return REP;
-//}
+CString CString::substr(size_t pos, size_t len) const
+{
+    if (pos > _size || len > _size - pos)
+    {
+        throw std::out_of_range("Invalid substring parameters");
+    }
+
+    size_t new_size = len + 1; // +1 for null terminator
+    char* new_data = new char[new_size];
+    for (size_t i = 0; i < len; i++)
+    {
+        new_data[i] = _data[i + pos];
+    }
+    new_data[len] = '\0';
+    CString REP(new_data);// pass new_size to constructor
+    delete[] new_data;
+    new_data = nullptr;
+    return REP;
+}
 
 CString& CString::assign(const CString& str)
 {

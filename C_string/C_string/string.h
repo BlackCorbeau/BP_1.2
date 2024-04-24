@@ -57,7 +57,7 @@ public:
 
     void swap(CString& str);
     /*size_t copy(char* buf, size_t len, size_t pos = 0) const;*/
-    /*CString substr(size_t pos, size_t len) const;*/ //написано но надо довести до ума) !!!_CrtIsValidHeapPointer(block)
+    CString substr(size_t pos, size_t len) const; //написано но надо довести до ума) !!!_CrtIsValidHeapPointer(block)
 
 
     CString& assign(const CString& str); 
