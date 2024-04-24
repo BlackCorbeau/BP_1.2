@@ -964,8 +964,6 @@ size_t CString::find_first_of(char c, size_t pos) const
 size_t CString::find_first_not_of(const CString& str, size_t pos) const
 {
     char* new_data;
-    int k = 0;
-    new_data = new char[_size];
     for (int i = 0; i < this->_size; i++)
     {
         bool found = false;
@@ -979,11 +977,9 @@ size_t CString::find_first_not_of(const CString& str, size_t pos) const
         }
         if (!found)
         {
-            new_data[k] = this->_data[i];
-            k++;
+            return i;
         }
     }
-    return this->find_first_of(new_data);
 }
 
 size_t CString::find_first_not_of(const char* s, size_t pos) const
@@ -993,9 +989,6 @@ size_t CString::find_first_not_of(const char* s, size_t pos) const
     {
         sublean++;
     }
-    char* new_data;
-    int k = 0;
-    new_data = new char[_size];
     for (int i = 0; i < this->_size; i++)
     {
         bool found = false;
@@ -1009,11 +1002,9 @@ size_t CString::find_first_not_of(const char* s, size_t pos) const
         }
         if (!found)
         {
-            new_data[k] = this->_data[i];
-            k++;
+            return i;
         }
     }
-    return this->find_first_of(new_data);
 }
 
 size_t CString::find_first_not_of(const char* s, size_t pos, size_t n) const
@@ -1023,9 +1014,6 @@ size_t CString::find_first_not_of(const char* s, size_t pos, size_t n) const
     {
         sublean++;
     }
-    char* new_data;
-    int k = 0;
-    new_data = new char[_size];
     for (int i = pos; i < this->_size; i++)
     {
         bool found = false;
@@ -1039,11 +1027,9 @@ size_t CString::find_first_not_of(const char* s, size_t pos, size_t n) const
         }
         if (!found)
         {
-            new_data[k] = this->_data[i];
-            k++;
+            return i;
         }
     }
-    return this->find_first_of(new_data);
 }
 
 size_t CString::find_first_not_of(char c, size_t pos) const

@@ -6,9 +6,11 @@ int main() {
     char test[10] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '\0' };
     CString str_1(test);
     CString str_2(test);
+    size_t i;
     str_1.print();
     str_2.print();
-    str_1.replace(3, 5, test1, 1);
+    i = str_1.find_first_not_of(test1);
+    std::cout << i << '\n';
     str_1.print();
     str_2.print();
     str_2.push_back('*');
