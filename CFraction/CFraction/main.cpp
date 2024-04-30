@@ -4,7 +4,7 @@
 int main()
 {
 	Fraction fr(3, 4);
-	Fraction fr2(1, 2);
+	Fraction fr2(2, 4);
 	Fraction fr3;
 	bool i = fr >= fr2;
 	std::cout << i << '\n';
