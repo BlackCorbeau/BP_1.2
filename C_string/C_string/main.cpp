@@ -9,7 +9,7 @@ int main() {
     size_t i;
     str_1.print();
     str_2.print();
-    str_2 = str_1.substr(3, 4);
+    str_2.assign(str_1.substr(3, 4));
     str_1.print();
     str_2.print();
     str_2.push_back('*');

@@ -169,15 +169,16 @@ CString CString::substr(size_t pos, size_t len) const
         throw std::out_of_range("Invalid substring parameters");
     }
 
-    size_t new_size = len + 1; // +1 for null terminator
+    size_t new_size = len + 1;
     char* new_data = new char[new_size];
     for (size_t i = 0; i < len; i++)
     {
         new_data[i] = _data[i + pos];
     }
     new_data[len] = '\0';
-    CString REP(new_data, new_size); // pass new_data and new_size to constructor
-    return REP; // let REP manage the memory
+    CString REP(new_data, new_size);
+    delete[] new_data;
+    return REP;
 }
 
 CString& CString::assign(const CString& str)
