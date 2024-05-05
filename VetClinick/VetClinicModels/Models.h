@@ -42,8 +42,7 @@ class human
 
 class Pet
 {
-	int id;
-	int Client_id;
+	Client* client;
 	CString Nickname;
 	int age;
 	int weight;
@@ -51,10 +50,7 @@ class Pet
 
 class Ilness
 {
-	int id;
 	CString name;
-	int animal_type;
-	CString syptomes;
 };
 
 class Doktor : human //Doktors.txt
@@ -65,7 +61,6 @@ class Doktor : human //Doktors.txt
 	TArchive<CTime[4]> T;
 	CExperience exp;
 	CString university;
-	int access_level = 1;
 public:
 	Doktor();
 	void Registrate_Pet();
@@ -76,9 +71,9 @@ public:
 class Client : human
 {
 	int id;
-	TArchive<int> Record_id;
-	TArchive<int> Pets_id;
-	int access_level = 0;
+	CString Password;
+	TArchive<Reception> Receptions;
+	TArchive<Pet> Pets;
 public:
 	void Sign_up_reception(int Reception_id);
 	void Cancel_sign_up(int Reception_id);
@@ -86,10 +81,9 @@ public:
 
 class Reception
 {
-	int id;
 	enum State {FREE, OCCUPED, CLOSED};
-	int Client_id;
-	int doctor_id; 
+	Client* client;
+	Doktor* doc;
 	CDate date;
 	CTime time;
 	State status;
@@ -98,9 +92,9 @@ class Reception
 
 class cart_of_ilnesses
 {
+	Pet* pet;
 	enum State {Il, IN_PROCESS, RECOVERED, IS_NOT_POSSIBLE};
-	int pet_id;
-	TArchive<int> Ilnesses_id;
+	TArchive<Ilness*> Ilnesses;
 	TArchive<CDate> Date_of_ilness;
 	TArchive<CString> Indications;
 	TArchive<State> status;
@@ -108,32 +102,32 @@ class cart_of_ilnesses
 
 class Cat : Pet
 {
-	int type_id = 001;
-	int ilness_id;
+	Ilness* ilness;
 };
 
 class Dog : Pet
 {
-	int type_id = 002;
-	int ilness_id;
+	Ilness* ilness;
 };
 
 class Bird : Pet
 {
-	int type_id = 003;
-	int ilness_id;
+	Ilness* ilness;
 };
 
 class Rodent : Pet
 {
-	int type_id = 004;
-	int ilness_id;
+	Ilness* ilness;
 };
 
 class Reptile : Pet
 {
-	int type_id = 005;
-	int ilness_id;
+	Ilness* ilness;
+};
+
+class Fish : Pet
+{
+	Ilness* ilness;
 };
 
 bool remove_line(const char* filename, size_t index);
