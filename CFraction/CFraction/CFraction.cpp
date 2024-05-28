@@ -71,7 +71,7 @@ void Fraction::print()
 	std::cout << _numerator << '/' << _denominator << '\n';
 }
 
-Fraction Fraction::operator=(const Fraction& fr)
+Fraction& Fraction::operator=(const Fraction& fr)
 {
 	if (this != &fr)
 	{
@@ -119,7 +119,7 @@ Fraction Fraction::operator+(const Fraction& fr1)
 	return Res;
 }
 
-void Fraction::operator+=(const Fraction& fr1)
+Fraction& Fraction::operator+=(const Fraction& fr1)
 {
 	if (_denominator == fr1._denominator)
 	{
@@ -131,6 +131,7 @@ void Fraction::operator+=(const Fraction& fr1)
 		_denominator = _denominator * fr1._denominator;
 	}
 	this->simplify();
+	return *this;
 }
 
 Fraction Fraction::operator-(const Fraction& fr)

@@ -15,7 +15,7 @@ public:
 
     void print();
     void simplify();
-    Fraction operator=(const Fraction& fr);
+    Fraction& operator=(const Fraction& fr);
 
     bool operator!=(const Fraction& fr);
     bool operator>=(const Fraction& fr);
@@ -24,7 +24,7 @@ public:
     bool operator>(const Fraction& fr);
 
     Fraction operator+(const Fraction& fr1);
-    void operator+=(const Fraction& fr1);
+    Fraction& operator+=(const Fraction& fr1);
 
     Fraction operator-(const Fraction& fr);
     void operator-=(const Fraction& fr);
