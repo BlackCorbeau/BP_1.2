@@ -307,7 +307,7 @@ void TArchive<T>::push_back(T value)
 template<typename T>
 void TArchive<T>::pop_back()
 {
-    _states[_size - 1] = State::deleted;
+    _states[_size - 1] = State::empty;
 }
 
 template<typename T>
@@ -325,7 +325,14 @@ void TArchive<T>::push_front(T value)
 template<typename T>
 void TArchive<T>::pop_front()
 {
-    _states[0] = State::deleted;
+    for (int i = 0; i < _size; i++)
+    {
+        if (_states[i] == busy)
+        {
+            _states[i] = deleted;
+            break;
+        }
+    }
 }
 
 
