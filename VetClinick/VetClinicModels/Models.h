@@ -9,6 +9,20 @@
 #include <vector>
 
 
+class PhoneNumber
+{
+	int country_index;
+	int operator_index;
+	int Region_index;
+	TArchive<int> number;
+
+public:
+	PhoneNumber();
+	PhoneNumber(int country_index, int operator_index, int Region_index, TArchive<int>& number);
+	PhoneNumber(PhoneNumber& num);
+	bool Check_for_correct();
+};
+
 struct Clients
 {
 	TArchive<int> user_id;
@@ -36,12 +50,14 @@ class human
 {
 	CString name;
 	CString surname;
-	CString TelelefonNumber;
+	PhoneNumber TelelefonNumber;
 	CString Adress;
 };
 
 class Pet
 {
+	enum Pet_type {CAT, DOG, BIRD, Fish, REPTILE, RODENT};
+	Pet_type pet_type;
 	Client* client;
 	CString Nickname;
 	int age;
@@ -53,25 +69,28 @@ class Ilness
 	CString name;
 };
 
-class Doktor : human //Doktors.txt
+class User : human
 {
 	int id;
 	CString password;
+};
+
+class Doktor : User //Doktors.txt
+{
 	CString spetialization;
 	TArchive<CTime[4]> T;
-	CExperience exp;
+	CTime start_since;
 	CString university;
 public:
 	Doktor();
 	void Registrate_Pet();
 	void Create_Reception(CTime start_time, CTime Finish_time);
 	void Close_Reception(int Reception_id);
+	CTime calculate_exp();
 };
 
-class Client : human
+class Client : User
 {
-	int id;
-	CString Password;
 	TArchive<Reception> Receptions;
 	TArchive<Pet> Pets;
 public:
@@ -98,36 +117,6 @@ class cart_of_ilnesses
 	TArchive<CDate> Date_of_ilness;
 	TArchive<CString> Indications;
 	TArchive<State> status;
-};
-
-class Cat : Pet
-{
-	Ilness* ilness;
-};
-
-class Dog : Pet
-{
-	Ilness* ilness;
-};
-
-class Bird : Pet
-{
-	Ilness* ilness;
-};
-
-class Rodent : Pet
-{
-	Ilness* ilness;
-};
-
-class Reptile : Pet
-{
-	Ilness* ilness;
-};
-
-class Fish : Pet
-{
-	Ilness* ilness;
 };
 
 bool remove_line(const char* filename, size_t index);
