@@ -31,5 +31,11 @@
 *.out
 *.app
 
+<<<<<<< HEAD
 x64/
 .vs/
+=======
+x64/
+.vs/
+
+>>>>>>> C_string_development
