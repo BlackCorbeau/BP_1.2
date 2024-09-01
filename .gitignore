@@ -32,6 +32,7 @@
 *.app
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 x64/
 .vs/
 =======
@@ -39,3 +40,7 @@ x64/
 .vs/
 
 >>>>>>> C_string_development
+=======
+x64/
+.vs/
+>>>>>>> CArchive_development
